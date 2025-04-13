@@ -1,61 +1,172 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" version="26.2.12">
-  <diagram name="Page-1" id="c4acf3e9-155e-7222-9cf6-157b1a14988f">
-    <mxGraphModel dx="2778" dy="2338" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
-      <root>
-        <mxCell id="0" />
-        <mxCell id="1" parent="0" />
-        <mxCell id="5d2195bd80daf111-18" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&lt;i&gt;Usuario&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- id: int&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- nome: str&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- cpf: str&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- data_nascimento: date&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(id: int, nome: str, cpf: str, data_nascimento: date)&lt;br&gt;+ id(): int&lt;br&gt;+ nome(): str&lt;br&gt;+ cpf(): int&lt;br&gt;+ data_nascimento(): date&lt;br&gt;+ nome(nome: str): None&lt;br&gt;+ cpf(cpf: str): None&lt;br&gt;+ data_nascimento(data: date): None&lt;br&gt;+ registrar_movimentacao(processo: Processo, movimentacao: Movimentacao): None&lt;br&gt;+ adicionar_documento(processo: Processo, documento: Documento): None&lt;br&gt;+ emitir_sentenca(processo: Processo, conteudo: str): None&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
-          <mxGeometry x="90" y="-226.5" width="480" height="293" as="geometry" />
-        </mxCell>
-        <mxCell id="5d2195bd80daf111-19" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Parte&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(id: int, nome: str, cpf: str, data_nascimento: date)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
-          <mxGeometry x="750" y="53" width="590" height="100" as="geometry" />
-        </mxCell>
-        <mxCell id="IntvYzq0Ck3v-AkWwq2L-13" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Advogado&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- oab: str&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(oab:str, id: int, nome: str, cpf: str, data_nascimento: date)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ registrar_movimentacao(processo: Processo, movimentacao: Movimentacao): None&lt;br&gt;+ adicionar_documento(processo: Processo, documento: Documento): None&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
-          <mxGeometry x="750" y="-340" width="590" height="140" as="geometry" />
-        </mxCell>
-        <mxCell id="IntvYzq0Ck3v-AkWwq2L-16" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Juiz&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- numero_funcional&amp;nbsp;: int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- tribunal_atribuido: str&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;numero_funcional&amp;nbsp;: int&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;tribunal_atribuido: str,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;id: int, nome: str, cpf: str, data_nascimento: date)&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ registrar_movimentacao(processo: Processo, movimentacao: Movimentacao): None&lt;br&gt;+ adicionar_documento(processo: Processo, documento: Documento): None&lt;br&gt;+ emitir_sentenca(processo: Processo, conteudo: str): None&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
-          <mxGeometry x="750" y="-150" width="590" height="140" as="geometry" />
-        </mxCell>
-        <mxCell id="IntvYzq0Ck3v-AkWwq2L-21" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Processo&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- numero: str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- data_abertura: date&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- status: str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- juiz_responsavel: [Juiz]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- advogados: [Advogado]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- partes: [Parte]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- documentos: [Documento]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- movimentacoes: [Movimentacao]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- sentenca: Sentenca&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(numero: str, juiz: Juiz)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ numero(): str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ data_abertura(): date&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ status(): str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ juiz_responsavel(): Juiz&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ adicionar_parte(parte: Parte): None&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ adicionar_advogado(advogado: Advogado): None&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ adicionar_documento(documento: Documento): None&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ registrar_movimentacao(movimentacao: Movimentacao): None&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ emitir_sentenca(sentenca: Sentenca): None&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;+ encerrar_processo(): None&lt;/span&gt;e&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
-          <mxGeometry x="1550" y="-275" width="380" height="390" as="geometry" />
-        </mxCell>
-        <mxCell id="IntvYzq0Ck3v-AkWwq2L-22" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Documento&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- id: int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- titulo: str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- descricao: str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- data_envio: date&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- autor: Usuario&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(id: int, titulo: str, descricao: str, data_envio: date, autor: Usuario)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ titulo(): str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ descricao(): str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ data_envio(): date&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ autor(): Usuario&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
-          <mxGeometry x="2200" y="-590" width="410" height="220" as="geometry" />
-        </mxCell>
-        <mxCell id="IntvYzq0Ck3v-AkWwq2L-23" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Movimentacao&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- id: int&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- data: date&lt;br&gt;- descricao: str&lt;br&gt;- tipo: str&lt;br&gt;- autor: Usuario&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(id: int, data: date, descricao: str, tipo: str, autor: Usuario)&lt;br/&gt;+ data(): date&lt;br/&gt;+ descricao(): str&lt;br/&gt;+ tipo(): str&lt;br/&gt;+ autor(): Usuario&amp;nbsp;&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
-          <mxGeometry x="2200" y="-270" width="410" height="220" as="geometry" />
-        </mxCell>
-        <mxCell id="IntvYzq0Ck3v-AkWwq2L-25" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Senteca&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- id: int&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- conteudo: str&lt;br&gt;- data: date&lt;br&gt;- juiz: Juiz&lt;/span&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(id: int, conteudo: str, data: date, juiz: Juiz)&lt;br&gt;+ conteudo(): str&lt;br&gt;+ data(): date&lt;br&gt;+ juiz(): Juiz&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
-          <mxGeometry x="2200" y="66.5" width="410" height="220" as="geometry" />
-        </mxCell>
-        <mxCell id="IntvYzq0Ck3v-AkWwq2L-29" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="IntvYzq0Ck3v-AkWwq2L-13" target="5d2195bd80daf111-18">
-          <mxGeometry width="160" relative="1" as="geometry">
-            <mxPoint x="550" y="-200" as="sourcePoint" />
-            <mxPoint x="710" y="-200" as="targetPoint" />
-            <Array as="points">
-              <mxPoint x="680" y="-270" />
-              <mxPoint x="680" y="-80" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="IntvYzq0Ck3v-AkWwq2L-30" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="IntvYzq0Ck3v-AkWwq2L-16" target="5d2195bd80daf111-18">
-          <mxGeometry width="160" relative="1" as="geometry">
-            <mxPoint x="760" y="20" as="sourcePoint" />
-            <mxPoint x="920" y="20" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="IntvYzq0Ck3v-AkWwq2L-31" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="5d2195bd80daf111-19" target="5d2195bd80daf111-18">
-          <mxGeometry x="-0.0018" width="160" relative="1" as="geometry">
-            <mxPoint x="780" as="sourcePoint" />
-            <mxPoint x="940" as="targetPoint" />
-            <Array as="points">
-              <mxPoint x="680" y="103" />
-              <mxPoint x="680" y="-80" />
-            </Array>
-            <mxPoint as="offset" />
-          </mxGeometry>
-        </mxCell>
-      </root>
-    </mxGraphModel>
-  </diagram>
+<mxfile host="65bd71144e">
+    <diagram name="Page-1" id="c4acf3e9-155e-7222-9cf6-157b1a14988f">
+        <mxGraphModel dx="833" dy="1978" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="5d2195bd80daf111-18" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;&lt;i&gt;Usuario&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- id: int&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- nome: str&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- cpf: str&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- data_nascimento: date&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(id: int, nome: str, cpf: str, data_nascimento: date)&lt;br&gt;+ id(): int&lt;br&gt;+ nome(): str&lt;br&gt;+ cpf(): int&lt;br&gt;+ data_nascimento(): date&lt;br&gt;+ nome(nome: str): None&lt;br&gt;+ cpf(cpf: str): None&lt;br&gt;+ data_nascimento(data: date): None&lt;br&gt;+ registrar_movimentacao(processo: Processo, movimentacao: Movimentacao): None&lt;br&gt;+ adicionar_documento(processo: Processo, documento: Documento): None&lt;br&gt;+ emitir_sentenca(processo: Processo, conteudo: str): None&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
+                    <mxGeometry x="90" y="-226.5" width="480" height="293" as="geometry"/>
+                </mxCell>
+                <mxCell id="5d2195bd80daf111-19" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Parte&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(id: int, nome: str, cpf: str, data_nascimento: date)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
+                    <mxGeometry x="750" y="53" width="590" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="IntvYzq0Ck3v-AkWwq2L-13" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Advogado&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- oab: str&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(oab:str, id: int, nome: str, cpf: str, data_nascimento: date)&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ registrar_movimentacao(processo: Processo, movimentacao: Movimentacao): None&lt;br&gt;+ adicionar_documento(processo: Processo, documento: Documento): None&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
+                    <mxGeometry x="750" y="-340" width="590" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="IntvYzq0Ck3v-AkWwq2L-16" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Juiz&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- numero_funcional&amp;nbsp;: int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- tribunal_atribuido: str&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;numero_funcional&amp;nbsp;: int&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;tribunal_atribuido: str,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;id: int, nome: str, cpf: str, data_nascimento: date)&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ registrar_movimentacao(processo: Processo, movimentacao: Movimentacao): None&lt;br&gt;+ adicionar_documento(processo: Processo, documento: Documento): None&lt;br&gt;+ emitir_sentenca(processo: Processo, conteudo: str): None&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
+                    <mxGeometry x="750" y="-150" width="590" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="IntvYzq0Ck3v-AkWwq2L-21" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Processo&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- numero: str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- data_abertura: date&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- status: str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- juiz_responsavel: [Juiz]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- advogados: [Advogado]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- partes: [Parte]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- documentos: [Documento]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- movimentacoes: [Movimentacao]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- sentenca: Sentenca&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(numero: str, juiz: Juiz)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ numero(): str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ data_abertura(): date&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ status(): str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ juiz_responsavel(): Juiz&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ adicionar_parte(parte: Parte): None&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ adicionar_advogado(advogado: Advogado): None&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ adicionar_documento(documento: Documento): None&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ registrar_movimentacao(movimentacao: Movimentacao): None&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ emitir_sentenca(sentenca: Sentenca): None&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;+ encerrar_processo(): None&lt;/span&gt;e&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
+                    <mxGeometry x="1550" y="-275" width="380" height="390" as="geometry"/>
+                </mxCell>
+                <mxCell id="IntvYzq0Ck3v-AkWwq2L-22" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Documento&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- id: int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- titulo: str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- descricao: str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- data_envio: date&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- autor: Usuario&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(id: int, titulo: str, descricao: str, data_envio: date, autor: Usuario)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ titulo(): str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ descricao(): str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ data_envio(): date&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ autor(): Usuario&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
+                    <mxGeometry x="2200" y="-590" width="410" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="IntvYzq0Ck3v-AkWwq2L-23" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Movimentacao&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- id: int&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- data: date&lt;br&gt;- descricao: str&lt;br&gt;- tipo: str&lt;br&gt;- autor: Usuario&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(id: int, data: date, descricao: str, tipo: str, autor: Usuario)&lt;br/&gt;+ data(): date&lt;br/&gt;+ descricao(): str&lt;br/&gt;+ tipo(): str&lt;br/&gt;+ autor(): Usuario&amp;nbsp;&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
+                    <mxGeometry x="2200" y="-190" width="410" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="IntvYzq0Ck3v-AkWwq2L-25" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Senteca&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- id: int&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- conteudo: str&lt;br&gt;- data: date&lt;br&gt;- juiz: Juiz&lt;/span&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(id: int, conteudo: str, data: date, juiz: Juiz)&lt;br&gt;+ conteudo(): str&lt;br&gt;+ data(): date&lt;br&gt;+ juiz(): Juiz&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
+                    <mxGeometry x="2200" y="170" width="410" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="IntvYzq0Ck3v-AkWwq2L-29" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="IntvYzq0Ck3v-AkWwq2L-13" target="5d2195bd80daf111-18" edge="1">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="550" y="-200" as="sourcePoint"/>
+                        <mxPoint x="710" y="-200" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="680" y="-270"/>
+                            <mxPoint x="680" y="-80"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="IntvYzq0Ck3v-AkWwq2L-30" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="IntvYzq0Ck3v-AkWwq2L-16" target="5d2195bd80daf111-18" edge="1">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="760" y="20" as="sourcePoint"/>
+                        <mxPoint x="920" y="20" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="IntvYzq0Ck3v-AkWwq2L-31" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="5d2195bd80daf111-19" target="5d2195bd80daf111-18" edge="1">
+                    <mxGeometry x="-0.0018" width="160" relative="1" as="geometry">
+                        <mxPoint x="780" as="sourcePoint"/>
+                        <mxPoint x="940" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="680" y="103"/>
+                            <mxPoint x="680" y="-80"/>
+                        </Array>
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="2" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="IntvYzq0Ck3v-AkWwq2L-21" target="IntvYzq0Ck3v-AkWwq2L-16">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="1520" y="-100" as="sourcePoint"/>
+                        <mxPoint x="1680" y="-100" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="3" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="IntvYzq0Ck3v-AkWwq2L-21" target="IntvYzq0Ck3v-AkWwq2L-13">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="1520" y="-100" as="sourcePoint"/>
+                        <mxPoint x="1680" y="-100" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1460" y="-80"/>
+                            <mxPoint x="1460" y="-270"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="4" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="IntvYzq0Ck3v-AkWwq2L-21" target="5d2195bd80daf111-19">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="1530" y="-100" as="sourcePoint"/>
+                        <mxPoint x="1690" y="-100" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1460" y="-80"/>
+                            <mxPoint x="1460" y="103"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="5" value="" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=1;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="IntvYzq0Ck3v-AkWwq2L-21" target="IntvYzq0Ck3v-AkWwq2L-22">
+                    <mxGeometry x="-1" y="3" relative="1" as="geometry">
+                        <mxPoint x="1820" as="sourcePoint"/>
+                        <mxPoint x="1980" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1930" y="-120"/>
+                            <mxPoint x="2065" y="-120"/>
+                            <mxPoint x="2065" y="-480"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="6" value="" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=1;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="IntvYzq0Ck3v-AkWwq2L-21" target="IntvYzq0Ck3v-AkWwq2L-25">
+                    <mxGeometry x="-1" y="3" relative="1" as="geometry">
+                        <mxPoint x="2050" y="-60" as="sourcePoint"/>
+                        <mxPoint x="2210" y="-60" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="1930" y="-40"/>
+                            <mxPoint x="2065" y="-40"/>
+                            <mxPoint x="2065" y="255"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="8" value="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="2140" y="230" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=1;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="IntvYzq0Ck3v-AkWwq2L-21" target="IntvYzq0Ck3v-AkWwq2L-23">
+                    <mxGeometry x="-1" y="3" relative="1" as="geometry">
+                        <mxPoint x="2080" y="20" as="sourcePoint"/>
+                        <mxPoint x="2240" y="20" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="11" value="0...1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="1923" y="-44" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="1932" y="-104" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="1&amp;nbsp;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="1942" y="-144" width="50" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="1505" y="-12" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="1...*" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="2140" y="-110" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;1...*&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="2150" y="-510" width="50" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="IntvYzq0Ck3v-AkWwq2L-22" target="5d2195bd80daf111-18">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="1680" y="-520" as="sourcePoint"/>
+                        <mxPoint x="1510" y="-290" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="330" y="-590"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="21" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="IntvYzq0Ck3v-AkWwq2L-23" target="5d2195bd80daf111-18">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="2610" y="-90" as="sourcePoint"/>
+                        <mxPoint x="2770" y="-90" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="2770" y="-80"/>
+                            <mxPoint x="2770" y="-590"/>
+                            <mxPoint x="1530" y="-590"/>
+                            <mxPoint x="330" y="-590"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="22" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="IntvYzq0Ck3v-AkWwq2L-25" target="5d2195bd80daf111-18">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="2140" y="120" as="sourcePoint"/>
+                        <mxPoint x="310" y="350" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="330" y="340"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="23" value="1&lt;div&gt;- juiz&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="330" y="83" width="50" height="40" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="1&lt;div&gt;- autor&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="335" y="-290" width="60" height="40" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
 </mxfile>
