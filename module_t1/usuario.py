@@ -14,4 +14,3 @@ class Usuario(ABC):
     @abstractmethod
     def emitir_sentenca(self, processo, conteudo):
         pass
-print(id('h'))
