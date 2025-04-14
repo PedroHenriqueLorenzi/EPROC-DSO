@@ -1,7 +1,7 @@
 #processo
 
 class Processo:
-    def __init__(self, numero_processo: str, data_abertura_processo: int, juiz_responsavel):
+    def __init__(self, numero_processo: str, data_abertura_processo: str, juiz_responsavel):
         self.__numero_processo = numero_processo
         self.__data_abertura_processo = data_abertura_processo
         self.__juiz_responsavel = juiz_responsavel
@@ -14,7 +14,8 @@ class Processo:
             self.__sentenca = None
 
 
-    #setters e getters...
+    #getters e setters...
+
 
     def adicionar_parte(self, parte):
         pass
