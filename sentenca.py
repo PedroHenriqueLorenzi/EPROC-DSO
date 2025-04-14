@@ -1,6 +1,6 @@
 #sentenca
 
-class sentenca:
+class Sentenca:
     def __init__(self, ide: int, conteudo: str, data: str, juiz):
         self.__ide = ide
         self.__conteudo = conteudo
