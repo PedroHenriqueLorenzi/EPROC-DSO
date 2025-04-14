@@ -7,7 +7,7 @@ class Usuario(ABC):
         self.__ide = ide
         self.__nome = nome
         self.__cpf = cpf
-        self.__data_nasciemnto = data_nascimento
+        self.__data_nascimento = data_nascimento
 
 
     #setters e getters....
@@ -18,9 +18,9 @@ class Usuario(ABC):
         pass
 
     @abstractmethod
-    def adcicionar_documento(self, documento):
+    def adicionar_documento(self, documento):
         pass
 
     @abstractmethod
-    def emitir_sentenca(processo, conteudo):
+    def emitir_sentenca(self, processo, conteudo):
         pass
