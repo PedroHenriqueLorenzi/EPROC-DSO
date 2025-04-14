@@ -8,4 +8,3 @@ class Parte:
         self.__data_nascimento = data_nascimento
 
 
-    #getters e setters...
