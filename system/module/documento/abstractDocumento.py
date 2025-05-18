@@ -1,5 +1,5 @@
 from abc import ABC,abstractmethod
-from system.module.abstractUsuario import Usuario
+from system.module.usuario.abstractUsuario import Usuario
 class Documento(ABC):
     @abstractmethod
     def __init__(self, id: int, titulo: str, descricao: str, data_envio: str, autor: Usuario):
@@ -44,7 +44,4 @@ class Documento(ABC):
     @property
     def autor(self):
         return self.__autor
-    
-    
-    
     

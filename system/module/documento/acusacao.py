@@ -16,7 +16,6 @@ class Acusacao(Documento):
         return self.__advogado_responsavel
     
     
-    
 
     
 
