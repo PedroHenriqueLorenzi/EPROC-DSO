@@ -1,6 +1,6 @@
 #advogado
 
-from usuario import Usuario
+from system.module.abstractUsuario import Usuario
 
 class Advogado(Usuario):
     def __init__(self, ide: int, nome: str, cpf: int, data_nascimento: str, oab: str):
