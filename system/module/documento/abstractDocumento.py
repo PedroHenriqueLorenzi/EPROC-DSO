@@ -34,11 +34,11 @@ class Documento(ABC):
         self.__descricao = descricao
 
     @property
-    def data_envio(self):
+    def data_envio(self, str):
         return self.__data_envio
     
     @data_envio.setter
-    def data_envio(self, data_envio: str:
+    def data_envio(self, data_envio: :str
         self.__data_envio = data_envio
 
     @property
