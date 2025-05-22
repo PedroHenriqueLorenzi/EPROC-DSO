@@ -22,15 +22,15 @@ class Documento(ABC):
         return self.__titulo
     
     @titulo.setter
-    def titulo(self, titulo: int):
-        self.__titulo = titulo
+    def titulo(self, titulo: str):
+        if isinstance(titulo, str): self.__titulo = titulo
 
     @property
     def descricao(self):
         return self.__descricao
     
     @descricao.setter
-    def descricao(self, descricao: int):
+    def descricao(self, descricao: str):
         self.__descricao = descricao
 
     @property
@@ -38,7 +38,7 @@ class Documento(ABC):
         return self.__data_envio
     
     @data_envio.setter
-    def data_envio(self, data_envio: int):
+    def data_envio(self, data_envio: str:
         self.__data_envio = data_envio
 
     @property
