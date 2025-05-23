@@ -2,8 +2,8 @@ from abc import ABC,abstractmethod
 from src.module.usuario.abstractUsuario import Usuario
 class Documento(ABC):
     @abstractmethod
-    def __init__(self, ide: int, titulo: str, descricao: str, data_envio: str, autor: Usuario):
-        self.__ide = ide
+    def __init__(self, id: int, titulo: str, descricao: str, data_envio: str, autor: Usuario):
+        self.__id = id
         self.__titulo = titulo
         self.__descricao = descricao
         self.__data_envio = data_envio
@@ -11,11 +11,11 @@ class Documento(ABC):
 
     @property
     def ide(self):
-        return self.__ide
+        return self.__id
 
     @ide.setter
-    def ide(self, ide: int):
-        if isinstance(ide, int): self.__ide = ide
+    def ide(self, id: int):
+        if isinstance(id, int): self.__id = id
 
     @property
     def titulo(self):
@@ -38,7 +38,7 @@ class Documento(ABC):
         return self.__data_envio
     
     @data_envio.setter
-    def data_envio(self, data_envio: :str
+    def data_envio(self, data_envio: str):
         self.__data_envio = data_envio
 
     @property
