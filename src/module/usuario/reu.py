@@ -1,6 +1,6 @@
-from src.module.usuario. import Usuario
+from src.module.usuario.abstractParte import Parte
 
-class Parte:
+class Reu:
     def __init__(self, ide: int, nome: str, cpf: int, data_nascimento: str):
         self.__ide = ide
         self.__nome = nome
