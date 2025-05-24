@@ -1,0 +1,26 @@
+class Tribunal:
+    def __init__(self, id, nome, localidade, descricao):
+        self.__id = id
+        self.__nome = nome
+        self.__localidade = localidade
+        self.__descricao = descricao
+
+    @property
+    def id(self): ...
+    @id.setter
+    def id(self, valor): ...
+
+    @property
+    def nome(self): ...
+    @nome.setter
+    def nome(self, valor): ...
+
+    @property
+    def localidade(self): ...
+    @localidade.setter
+    def localidade(self, valor): ...
+
+    @property
+    def descricao(self): ...
+    @descricao.setter
+    def descricao(self, valor): ...
