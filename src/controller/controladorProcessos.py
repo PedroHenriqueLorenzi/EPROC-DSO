@@ -1,12 +1,14 @@
 from src.module.usuario.abstractUsuario import Usuario
-from src.view.tela_processos import TelaProcessos
+from src.module.usuario.juiz import Juiz
+from src.module.usuario.advogado import Advogado
+from src.view.telaProcessos import TelaProcessos
 from src.module.processo import Processo
 from src.module.documento.acusacao import Acusacao
 from src.module.documento.defesa import Defesa
 from src.module.documento.audiencia import Audiencia
 from src.module.documento.sentenca import Sentenca
 from src.module.documento.arquivamento import Arquivamento
-from src.module.documento.tribunal import Tribunal
+from src.module.tribunal import Tribunal
 from datetime import date
 
 class ControladorProcessos:
@@ -84,7 +86,7 @@ class ControladorProcessos:
             return
 
         tipo, dados_doc = self.__tela.ler_dados_documento()
-        dados_doc["autor"] = self.__usuario_logado  # Força o autor como usuário logado
+        dados_doc["autor"] = self.__usuario_logado 
         doc = None
 
         if tipo == "sentenca":
