@@ -1,12 +1,13 @@
+
 class TelaProcessos:
     def mostrar_menu(self) -> int:
-        print("\n--- MENU DE PROCESSOS ---")
+        print("\n=== MENU DE PROCESSOS ===")
         print("1 - Criar novo processo")
         print("2 - Listar processos")
-        print("3 - Adicionar documento a processo")
+        print("3 - Adicionar documento")
         print("4 - Encerrar processo")
-        print("5 - Gerar relatório de processos")
-        print("0 - Voltar ao menu principal")
+        print("5 - Gerar relatório")
+        print("0 - Voltar")
         try:
             return int(input("Escolha uma opção: "))
         except ValueError:
@@ -17,72 +18,78 @@ class TelaProcessos:
 
     def ler_dados_processo(self) -> dict:
         print("\n--- Cadastro de Processo ---")
-        numero = input("Número do processo: ").strip()
-        data_abertura = input("Data de abertura (AAAA-MM-DD): ").strip()
-        juiz = input("Nome do juiz responsável: ").strip()  # será substituído no controlador
-        advogados = input("Nomes dos advogados (separados por vírgula): ").split(",")
-        partes = input("Nomes das partes (separados por vírgula): ").split(",")
-
+        numero = int(input("Número do processo: "))
+        data_abertura = input("Data de abertura (AAAA-MM-DD): ")
+        juiz = input("Juiz responsável (objeto esperado): ")
+        advogados = input("Advogados (lista de objetos esperada): ")
+        partes = input("Partes (lista de objetos esperada): ")
         return {
             "numero": numero,
             "data_abertura": data_abertura,
             "juiz": juiz,
-            "advogados": [a.strip() for a in advogados if a.strip()],
-            "partes": [p.strip() for p in partes if p.strip()]
+            "advogados": advogados,
+            "partes": partes
         }
 
-    def exibir_lista_processos(self, lista: list[str]):
+    def selecionar_tribunal(self, tribunais: list):
+        print("\n--- Selecionar Tribunal ---")
+        for t in tribunais:
+            print(f"{t.id} - {t.nome} ({t.localidade})")
+        try:
+            id_escolhido = int(input("Digite o ID do tribunal: "))
+            for t in tribunais:
+                if t.id == id_escolhido:
+                    return t
+        except ValueError:
+            pass
+        return None
+
+    def exibir_lista_processos(self, lista: list):
         print("\n--- Lista de Processos ---")
-        if not lista:
-            print("Nenhum processo encontrado.")
-        else:
-            for item in lista:
-                print(item)
+        for item in lista:
+            print(item)
 
-    def selecionar_numero_processo(self) -> str:
-        return input("Digite o número do processo: ").strip()
+    def selecionar_numero_processo(self) -> int:
+        try:
+            return int(input("Digite o número do processo: "))
+        except ValueError:
+            return -1
 
-    def ler_dados_documento(self) -> tuple[str, dict]:
+    def ler_dados_documento(self):
         print("\n--- Adicionar Documento ---")
-        tipo = input("Tipo de documento (acusacao / defesa / audiencia / sentenca / arquivamento): ").strip().lower()
-        id_doc = int(input("ID do documento: ").strip())
-        titulo = input("Título do documento: ").strip()
-        descricao = input("Descrição: ").strip()
-        data_envio = input("Data de envio (AAAA-MM-DD): ").strip()
-
-        dados = {
+        tipo = input("Tipo de documento (acusacao/defesa/audiencia/sentenca): ").lower()
+        id_doc = int(input("ID do documento: "))
+        titulo = input("Título: ")
+        descricao = input("Descrição: ")
+        data_envio = input("Data de envio (AAAA-MM-DD): ")
+        return tipo, {
             "id": id_doc,
             "titulo": titulo,
             "descricao": descricao,
             "data_envio": data_envio
-            # o autor será definido pelo controlador
         }
 
-        # Campos específicos opcionais
-        if tipo == "arquivamento":
-            dados["motivo"] = input("Motivo do arquivamento: ").strip()
-        elif tipo == "audiencia":
-            dados["data"] = input("Data da audiência (AAAA-MM-DD): ").strip()
-
-        return tipo, dados
-
-    def exibir_relatorio(self, relatorio: list[str]):
-        print("\n--- Relatório de Processos ---")
-        if not relatorio:
+    def exibir_relatorio(self, linhas: list):
+        print("\n--- RELATÓRIO ---")
+        if not linhas:
             print("Nenhum dado encontrado.")
-        else:
-            for linha in relatorio:
-                print(linha)
+        for linha in linhas:
+            print(linha)
 
-    def selecionar_tribunal(self, tribunais: list):
-        print("\n--- Tribunais Disponíveis ---")
-        for t in tribunais:
-            print(f"{t.id()} - {t.nome()} ({t.localidade()})")
+    def mostrar_menu_relatorio(self) -> int:
+        print("\n--- Relatórios Disponíveis ---")
+        print("1 - Por status")
+        print("2 - Por juiz")
+        print("3 - Sem audiência")
+        print("4 - Com sentença")
+        print("0 - Voltar")
         try:
-            id_escolhido = int(input("Digite o ID do tribunal a ser vinculado: "))
-            for t in tribunais:
-                if t.id() == id_escolhido:
-                    return t
+            return int(input("Escolha uma opção: "))
         except ValueError:
-            return None
-        return None
+            return -1
+
+    def solicitar_status(self) -> str:
+        return input("Digite o status (Ativo/Encerrado): ")
+
+    def solicitar_nome_juiz(self) -> str:
+        return input("Digite o nome do juiz: ")
