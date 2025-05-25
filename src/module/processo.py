@@ -4,6 +4,8 @@ from src.module.usuario.juiz import Juiz
 from src.module.usuario.advogado import Advogado
 from src.module.usuario.promotor import Promotor
 from src.module.usuario.reu import Reu
+from src.module.usuario.vitima import Vitima
+
 
 
 
