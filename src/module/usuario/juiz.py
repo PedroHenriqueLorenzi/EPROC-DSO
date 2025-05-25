@@ -5,6 +5,8 @@ class Juiz(Usuario):
         super().__init__(ide= ide, nome= nome, cpf= cpf, data_nascimento= data_nascimento)
         self.__tribunal_atribudio = tribunal_atribuido
         self.__processos = []
+        self.__ultima_sentenca = None
+        self.__ultimo_arquivamento = None
 
     @property
     def ide(self):

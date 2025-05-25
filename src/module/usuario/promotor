@@ -4,6 +4,7 @@ class Promotor(Usuario):
     def __init__(self, ide: int, nome: str, cpf: int, data_nascimento: str, area_atuacao):
         super().__init__(ide= ide, nome= nome, cpf= cpf, data_nascimento= data_nascimento)
         self.__area_atuacao = area_atuacao
+        self.__ultima_acusacao = None
 
     @property
     def ide(self):

@@ -7,6 +7,7 @@ class Advogado(Usuario):
         super().__init__(ide= ide, nome= nome, cpf= cpf, data_nascimento= data_nascimento)
         self.__oab = oab
         self.__processos = []
+        self.__ultima_defesa = None
 
     @property
     def ide(self):
