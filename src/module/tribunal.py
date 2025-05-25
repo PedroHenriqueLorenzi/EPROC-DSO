@@ -1,17 +1,17 @@
 class Tribunal:
-    def __init__(self, ide, nome, localidade, atribuicao, instancia):
-        self.__ide = ide
+    def __init__(self, id, nome, localidade, atribuicao, instancia):
+        self.__id = id
         self.__nome = nome
         self.__localidade = localidade
         self.__atribuicao = atribuicao
         self.__instancia = instancia
 
     @property
-    def ide(self):
-        return self.__ide
-    @ide.setter
-    def ide(self, nova_ide: int):
-        if isinstance(nova_ide, int): self.__ide = nova_ide
+    def id(self):
+        return self.__id
+    @id.setter
+    def id(self, nova_id: int):
+        if isinstance(nova_id, int): self.__id = nova_ide
 
     @property
     def nome(self):
@@ -31,5 +31,12 @@ class Tribunal:
     def atribuicao(self):
         return self.__atribuicao
     @atribuicao.setter
-    def descricao(self, nova_atribucao):
+    def atribuicao(self, nova_atribucao):
         if isinstance(nova_atribucao, str): self.__atribuicao = nova_atribucao
+    
+    @property
+    def instancia(self):
+        return self.__instancia
+    @instancia.setter
+    def instancia(self, nova_instancia):
+        if isinstance(nova_instancia, str): self.__instancia = nova_instancia
