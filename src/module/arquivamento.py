@@ -7,5 +7,22 @@ class Arquivamento:
         self.__data = data
         self.__juiz = juiz
 
+    @property
+    
+    @.setter
 
-    #getters e setters
+    @property
+    
+    @.setter
+
+    @property
+    
+    @.setter
+
+    @property
+    
+    @.setter
+
+    @property
+    
+    @.setter
