@@ -93,4 +93,3 @@ class Processo:
         if isinstance(arquivamento, Arquivamento) and not self.__processo_arquivado:
             self.__arquivamento.append(arquivamento)
             self.__processo_arquivado = True
-##
