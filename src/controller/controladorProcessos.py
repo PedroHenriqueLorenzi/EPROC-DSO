@@ -7,7 +7,7 @@ from src.module.documento.acusacao import Acusacao
 from src.module.documento.defesa import Defesa
 from src.module.documento.audiencia import Audiencia
 from src.module.documento.sentenca import Sentenca
-from src.module.documento.arquivamento import Arquivamento
+from src.module.arquivamento import Arquivamento
 from src.module.tribunal import Tribunal
 from datetime import date
 

@@ -13,9 +13,25 @@ class Processo:
         if self.__processo_encerrado == False:
             self.__sentenca = None
 
+    @property
+    
+    @.setter
 
-    #getters e setters...
+    @property
+    
+    @.setter
 
+    @property
+    
+    @.setter
+
+    @property
+    
+    @.setter
+
+    @property
+    
+    @.setter
 
     def adicionar_parte(self, parte):
         pass
