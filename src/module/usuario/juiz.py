@@ -1,4 +1,7 @@
 from src.module.usuario.abstractUsuario import Usuario
+from src.module.documento.sentenca import Sentenca
+from src.module.arquivamento import Arquivamento
+from src.module.documento.audiencia import Audiencia
 
 class Juiz(Usuario):
     def __init__(self, ide: int, nome: str, cpf: int, data_nascimento: str, tribunal_atribuido: str):
@@ -37,6 +40,7 @@ class Juiz(Usuario):
         if isinstance(nova_data_nascimento, str): self.__data_nascimento = nova_data_nascimento
 
 
+
     #def registrar_movimentacao(self, processo, movimentacao):
         #pass
 
@@ -44,4 +48,7 @@ class Juiz(Usuario):
         pass
 
     def emitir_arquivamento(self, arquivamento):
+        pass
+
+    def realizar_audiencia(self, audiencia):
         pass

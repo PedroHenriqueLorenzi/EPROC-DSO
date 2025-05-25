@@ -1,11 +1,9 @@
 from abstractDocumento import Documento, Usuario
 
 class Audiencia(Documento):
-    def __init__(self, ide, titulo, descricao, data_envio, autor: Usuario, conteudo, juiz_responsavel: Juiz, advogado_responsavel, promotor_responsavel):
+    def __init__(self, ide, titulo, descricao, data_envio, autor: Usuario, conteudo, juiz_responsavel: Juiz):
         super().__init__(ide, titulo, descricao, data_envio, autor, conteudo)
         self.__juiz_responsavel = juiz_responsavel 
-        self.__advogado_responsavel = advogado_responsavel   
-        self.__promotor_responsavel = promotor_responsavel
         self.__partes_envolvidas = [] 
     
     @property

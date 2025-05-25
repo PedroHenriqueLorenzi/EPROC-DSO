@@ -1,6 +1,7 @@
 #advogado
 
 from src.module.usuario.abstractUsuario import Usuario
+from src.module.documento.defesa import Defesa
 
 class Advogado(Usuario):
     def __init__(self, ide: int, nome: str, cpf: int, data_nascimento: str, oab: str):
@@ -41,5 +42,5 @@ class Advogado(Usuario):
     #def registrar_movimentacao(self, processo, movimentacao):
         #pass
 
-    def apresentar_defesa(self, defesa):
-        pass
+    def apresentar_defesa(self, ide, titulo, descricao, data_envio, autor, conteudo, reu):
+        self.__ultima_defesa = Defesa(ide, titulo, descricao, data_envio, autor, conteudo, reu)

@@ -15,7 +15,6 @@ from src.module.documento.sentenca import Sentenca
 from src.module.arquivamento import Arquivamento
 
 
-
 class Processo:
     def __init__(self, numero_processo: int, data_abertura_processo: str, juiz_responsavel: Juiz, promotor_responsavel, tribunal_responsavel):
         self.__numero_processo = numero_processo

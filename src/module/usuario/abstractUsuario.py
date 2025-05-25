@@ -37,10 +37,10 @@ class Usuario(ABC):
         if isinstance(nova_data_nascimento, str): self.__data_nascimento = nova_data_nascimento
 
 
+
+    @abstractmethod
     def realizar_audiencia(self, audiencia):
         pass
-
-
 
     #@abstractmethod
     #def registrar_movimentacao(self, processo, movimentacao):

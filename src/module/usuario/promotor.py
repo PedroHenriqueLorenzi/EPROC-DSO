@@ -1,4 +1,5 @@
 from src.module.usuario.abstractUsuario import Usuario
+from src.module.documento.acusacao import Acusacao
 
 class Promotor(Usuario):
     def __init__(self, ide: int, nome: str, cpf: int, data_nascimento: str, area_atuacao):
