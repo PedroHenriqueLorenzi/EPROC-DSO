@@ -1,9 +1,9 @@
 from src.module.usuario.abstractUsuario import Usuario
 
-class Parte(Usuario):
-    def __init__(self, ide: int, nome: str, cpf: int, data_nascimento: str, crime_relacionado = str):
+class Promotor(Usuario):
+    def __init__(self, ide: int, nome: str, cpf: int, data_nascimento: str, area_atuacao):
         super().__init__(ide= ide, nome= nome, cpf= cpf, data_nascimento= data_nascimento)
-        self.__crime_relacionado = crime_relacionado
+        self.__area_atuacao = area_atuacao
 
     @property
     def ide(self):
@@ -32,3 +32,6 @@ class Parte(Usuario):
     @data_nascimento.setter
     def data_nascimento(self, nova_data_nascimento):
         if isinstance(nova_data_nascimento, str): self.__data_nascimento = nova_data_nascimento
+
+    def emitir_acusacao(self, acusacao):
+        pass

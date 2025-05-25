@@ -36,14 +36,30 @@ class Usuario(ABC):
     def data_nascimento(self, nova_data_nascimento):
         if isinstance(nova_data_nascimento, str): self.__data_nascimento = nova_data_nascimento
 
+
+    def realizar_audiencia(self, audiencia):
+        pass
+
+
+
     #@abstractmethod
     #def registrar_movimentacao(self, processo, movimentacao):
         #pass
 
     @abstractmethod
-    def adicionar_documento(self, documento):
+    def apresentar_defesa(self, defesa):
         pass
 
     @abstractmethod
-    def emitir_sentenca(self, processo, conteudo):
+    def emitir_acusacao(self, acusacao):
+        pass
+
+    @abstractmethod
+    def emitir_sentenca(self, processo):
+        pass
+
+
+
+    @abstractmethod
+    def emitir_arquivamento(self, arquivamento):
         pass

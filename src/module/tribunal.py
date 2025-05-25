@@ -1,9 +1,10 @@
 class Tribunal:
-    def __init__(self, ide, nome, localidade, descricao):
+    def __init__(self, ide, nome, localidade, atribuicao, instancia):
         self.__ide = ide
         self.__nome = nome
         self.__localidade = localidade
-        self.__descricao = descricao
+        self.__atribuicao = atribuicao
+        self.__instancia = instancia
 
     @property
     def ide(self):
@@ -27,8 +28,8 @@ class Tribunal:
         if isinstance(nova_localidade, str): self.__localidade = nova_localidade
 
     @property
-    def descricao(self):
-        return self.__descricao
-    @descricao.setter
-    def descricao(self, nova_descricao):
-        if isinstance(nova_descricao, str): self.__descricao = nova_descricao
+    def atribuicao(self):
+        return self.__atribuicao
+    @atribuicao.setter
+    def descricao(self, nova_atribucao):
+        if isinstance(nova_atribucao, str): self.__atribuicao = nova_atribucao

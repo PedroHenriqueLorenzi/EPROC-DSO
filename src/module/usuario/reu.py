@@ -1,11 +1,8 @@
 from src.module.usuario.abstractParte import Parte
 
-class Reu:
-    def __init__(self, ide: int, nome: str, cpf: int, data_nascimento: str):
-        self.__ide = ide
-        self.__nome = nome
-        self.__cpf = cpf
-        self.__data_nascimento = data_nascimento
+class Reu(Parte):
+    def __init__(self, ide: int, nome: str, cpf: int, data_nascimento: str, crime_relacionado: str):
+        super().__init__(ide= ide, nome= nome, cpf= cpf, data_nascimento= data_nascimento, crime_relacionado= crime_relacionado)
 
     @property
     def ide(self):

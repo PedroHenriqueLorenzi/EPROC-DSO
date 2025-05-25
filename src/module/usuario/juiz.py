@@ -38,8 +38,8 @@ class Juiz(Usuario):
     #def registrar_movimentacao(self, processo, movimentacao):
         #pass
 
-    def adicionar_documento(self, documento):
+    def emitir_sentenca(self, sentenca):
         pass
 
-    def emitir_sentenca(self, processo, conteudo):
+    def emitir_arquivamento(self, arquivamento):
         pass

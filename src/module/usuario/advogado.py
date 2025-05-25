@@ -40,5 +40,5 @@ class Advogado(Usuario):
     #def registrar_movimentacao(self, processo, movimentacao):
         #pass
 
-    def adicionar_documento(self, documento):
+    def apresentar_defesa(self, defesa):
         pass
