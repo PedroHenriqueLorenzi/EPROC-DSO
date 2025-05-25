@@ -17,10 +17,3 @@ class Audiencia(Documento):
     @property
     def partes_envolvidas(self):
         return self.__partes_envolvidas
-    
-    
-
-    
-
-    
-

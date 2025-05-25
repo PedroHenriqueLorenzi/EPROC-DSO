@@ -14,8 +14,4 @@ class Acusacao(Documento):
     @property 
     def advogado_responsavel(self):
         return self.__advogado_responsavel
-    
-    
-
-    
 
