@@ -2,20 +2,19 @@ from abc import ABC,abstractmethod
 from src.module.usuario.abstractUsuario import Usuario
 class Documento(ABC):
     @abstractmethod
-    def __init__(self, ide: int, titulo: str, descricao: str, data_envio: str, autor: Usuario, conteudo: str):
-        self.__ide = ide
+    def __init__(self, id: int, titulo: str, descricao: str, data_envio: str, autor: Usuario):
+        self.__id = id
         self.__titulo = titulo
         self.__descricao = descricao
         self.__data_envio = data_envio
         self.__autor = autor
-        self.__conteudo = conteudo
 
     @property
-    def ide(self):
-        return self.__ide
-    @ide.setter
-    def ide(self, nova_ide: int):
-        if isinstance(nova_ide, int): self.__ide = nova_ide
+    def id(self):
+        return self.__id
+    @id.setter
+    def id(self, nova_id: int):
+        if isinstance(nova_id, int): self.__id = nova_id
 
     @property
     def titulo(self):
