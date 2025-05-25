@@ -3,17 +3,16 @@
 from src.module.usuario.abstractUsuario import Usuario
 
 class Advogado(Usuario):
-    def __init__(self, ide: int, nome: str, cpf: int, data_nascimento: str, oab: str):
-        super().__init__(ide= ide, nome= nome, cpf= cpf, data_nascimento= data_nascimento)
+    def __init__(self, id: int, nome: str, cpf: int, data_nascimento: str, oab: str):
+        super().__init__(id= id, nome= nome, cpf= cpf, data_nascimento= data_nascimento)
         self.__oab = oab
-        self.__processos = []
 
     @property
-    def ide(self):
-        return self.__ide
-    @ide.setter
-    def ide(self, nova_ide):
-        if isinstance(nova_ide, int): self.__ide = nova_ide
+    def id(self):
+        return self.__id
+    @id.setter
+    def id(self, nova_id):
+        if isinstance(nova_id, int): self.__id = nova_id
 
     @property
     def nome(self):
@@ -35,10 +34,3 @@ class Advogado(Usuario):
     @data_nascimento.setter
     def data_nascimento(self, nova_data_nascimento):
         if isinstance(nova_data_nascimento, str): self.__data_nascimento = nova_data_nascimento
-
-
-    #def registrar_movimentacao(self, processo, movimentacao):
-        #pass
-
-    def apresentar_defesa(self, defesa):
-        pass

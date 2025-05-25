@@ -1,15 +1,15 @@
 from src.module.usuario.abstractParte import Parte
 
 class Vitima(Parte):
-    def __init__(self, ide: int, nome: str, cpf: int, data_nascimento: str, crime_relacionado: str):
-        super().__init__(ide= ide, nome= nome, cpf= cpf, data_nascimento= data_nascimento, crime_relacionado= crime_relacionado)
+    def __init__(self, id: int, nome: str, cpf: int, data_nascimento: str, crime_relacionado: str):
+        super().__init__(id= id, nome= nome, cpf= cpf, data_nascimento= data_nascimento, crime_relacionado= crime_relacionado)
 
     @property
-    def ide(self):
-        return self.__ide
-    @ide.setter
-    def ide(self, nova_ide):
-        if isinstance(nova_ide, int): self.__ide = nova_ide
+    def id(self):
+        return self.__id
+    @id.setter
+    def id(self, nova_id):
+        if isinstance(nova_id, int): self.__id = nova_id
 
     @property
     def nome(self):
