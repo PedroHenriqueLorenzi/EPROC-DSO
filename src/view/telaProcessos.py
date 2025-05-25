@@ -1,4 +1,3 @@
-
 class TelaProcessos:
     def mostrar_menu(self) -> int:
         print("\n=== MENU DE PROCESSOS ===")
@@ -18,18 +17,33 @@ class TelaProcessos:
 
     def ler_dados_processo(self) -> dict:
         print("\n--- Cadastro de Processo ---")
-        numero = int(input("Número do processo: "))
-        data_abertura = input("Data de abertura (AAAA-MM-DD): ")
-        juiz = input("Juiz responsável (objeto esperado): ")
-        advogados = input("Advogados (lista de objetos esperada): ")
-        partes = input("Partes (lista de objetos esperada): ")
+
+        while True:
+            try:
+                numero = int(input("Número do processo (inteiro): "))
+                if numero < 0:
+                    raise ValueError
+                break
+            except ValueError:
+                print("Número inválido. Digite um número inteiro positivo.")
+
+        while True:
+            data_abertura = input("Data de abertura (AAAA-MM-DD): ").strip()
+            try:
+                from datetime import datetime
+                datetime.strptime(data_abertura, "%Y-%m-%d")
+                break
+            except ValueError:
+                print("Data inválida. Use o formato correto: AAAA-MM-DD.")
+
+        juiz_id = input("Digite o ID do juiz responsável: ").strip()
+
         return {
             "numero": numero,
             "data_abertura": data_abertura,
-            "juiz": juiz,
-            "advogados": advogados,
-            "partes": partes
+            "juiz_id": juiz_id
         }
+
 
     def selecionar_tribunal(self, tribunais: list):
         print("\n--- Selecionar Tribunal ---")
@@ -108,4 +122,3 @@ class TelaProcessos:
         except ValueError:
             self.mostrar_mensagem("Entrada inválida.")
             return []
-

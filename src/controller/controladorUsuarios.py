@@ -68,7 +68,7 @@ class ControladorUsuarios:
     def remover_usuario(self):
         id_remover = self.__tela.solicitar_id()
         for u in self.__usuarios:
-            if u.id() == id_remover:
+            if u.id == id_remover:
                 self.__usuarios.remove(u)
                 self.__tela.mostrar_mensagem("Usuário removido.")
                 return
@@ -79,3 +79,6 @@ class ControladorUsuarios:
             if u.id == id_usuario:
                 return u
         return None
+
+    def get_usuarios(self):
+        return self.__usuarios

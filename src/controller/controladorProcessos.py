@@ -12,11 +12,13 @@ from module.tribunal import Tribunal
 from datetime import date
 
 class ControladorProcessos:
-    def __init__(self):
+    def __init__(self, controlador_usuarios):
+        self.__controlador_usuarios = controlador_usuarios
         self.__processos = []
         self.__tribunais = self.__carregar_tribunais()
         self.__tela = TelaProcessos()
         self.__usuario_logado = None
+
 
     def set_usuario_logado(self, usuario: Usuario):
         self.__usuario_logado = usuario
