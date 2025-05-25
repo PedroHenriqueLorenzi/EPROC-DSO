@@ -36,9 +36,9 @@ class Usuario(ABC):
     def data_nascimento(self, nova_data_nascimento):
         if isinstance(nova_data_nascimento, str): self.__data_nascimento = nova_data_nascimento
 
-    @abstractmethod
-    def registrar_movimentacao(self, processo, movimentacao):
-        pass
+    #@abstractmethod
+    #def registrar_movimentacao(self, processo, movimentacao):
+        #pass
 
     @abstractmethod
     def adicionar_documento(self, documento):

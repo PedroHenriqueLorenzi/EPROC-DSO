@@ -37,8 +37,8 @@ class Advogado(Usuario):
         if isinstance(nova_data_nascimento, str): self.__data_nascimento = nova_data_nascimento
 
 
-    def registrar_movimentacao(self, processo, movimentacao):
-        pass
+    #def registrar_movimentacao(self, processo, movimentacao):
+        #pass
 
     def adicionar_documento(self, documento):
         pass
