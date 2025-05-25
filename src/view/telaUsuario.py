@@ -14,7 +14,7 @@ class TelaUsuarios:
     def mostrar_mensagem(self, mensagem: str):
         print(f">>> {mensagem}")
 
-    def ler_dados_usuario(self) -> dict:
+    def ler_dados_usuario(self, tribunais=None) -> dict:
         print("\n--- Cadastro de Usuário ---")
         try:
             id_usuario = int(input("ID: "))
@@ -24,13 +24,33 @@ class TelaUsuarios:
         cpf = input("CPF: ")
         data_nascimento = input("Data de nascimento (AAAA-MM-DD): ")
         tipo = input("Tipo (juiz/advogado/vitima/reu): ").lower()
-        return {
+
+        dados = {
             "id": id_usuario,
             "nome": nome,
             "cpf": cpf,
             "data_nascimento": data_nascimento,
             "tipo": tipo
         }
+
+        if tipo == "juiz" and tribunais:
+            print("\nTribunais disponíveis:")
+            for t in tribunais:
+                print(f"{t.id} - {t.nome} ({t.localidade})")
+            try:
+                id_tribunal = int(input("Escolha o ID do tribunal atribuído ao juiz: "))
+                for t in tribunais:
+                    if t.id == id_tribunal:
+                        dados["tribunal_atribuido"] = t
+                        break
+                else:
+                    print("Tribunal não encontrado. Juiz não será cadastrado.")
+                    return {}
+            except ValueError:
+                print("Entrada inválida.")
+                return {}
+
+        return dados
 
     def exibir_usuarios(self, lista: list):
         print("\n--- Lista de Usuários ---")

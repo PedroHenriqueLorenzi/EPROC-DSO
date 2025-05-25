@@ -93,3 +93,19 @@ class TelaProcessos:
 
     def solicitar_nome_juiz(self) -> str:
         return input("Digite o nome do juiz: ")
+    def perguntar_sim_ou_nao(self, mensagem):
+        resp = input(mensagem).strip().lower()
+        return resp == 's'
+
+    def selecionar_usuarios_por_id(self, lista_usuarios, tipo):
+        print(f"--- Seleção de {tipo.capitalize()}s ---")
+        for u in lista_usuarios:
+            print(f"{u.id} - {u.nome} ({u.__class__.__name__})")
+        try:
+            ids = input("Digite os IDs separados por vírgula: ").split(",")
+            ids = [int(i.strip()) for i in ids]
+            return [u for u in lista_usuarios if u.id in ids]
+        except ValueError:
+            self.mostrar_mensagem("Entrada inválida.")
+            return []
+

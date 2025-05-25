@@ -1,21 +1,32 @@
-from src.view.telaSistema import TelaSistema
-from src.controller.controladorUsuarios import ControladorUsuarios
-from src.controller.controladorProcessos import ControladorProcessos
+from view.telaSistema import TelaSistema
+from controller.controladorUsuarios import ControladorUsuarios
+from controller.controladorProcessos import ControladorProcessos
 
 class ControladorSistema:
     def __init__(self):
         self.__tela = TelaSistema()
-        self.__controlador_usuarios = ControladorUsuarios()
         self.__controlador_processos = ControladorProcessos()
+        self.__controlador_usuarios = ControladorUsuarios(self.__controlador_processos.get_tribunais())
 
     def inicializar(self):
-        self.__controlador_usuarios.abrir_tela()
+        while True:
+            opcao = self.__tela.mostrar_menu()
+            if opcao == 1:
+                self.__controlador_usuarios.abrir_tela()
 
-        id_usuario = self.__tela.solicitar_id_usuario()
-        usuario_logado = self.__controlador_usuarios.buscar_usuario_por_id(id_usuario)
+            elif opcao == 2:
+                id_usuario = self.__tela.solicitar_id_usuario()
+                usuario_logado = self.__controlador_usuarios.buscar_usuario_por_id(id_usuario)
 
-        if usuario_logado:
-            self.__controlador_processos.set_usuario_logado(usuario_logado)
-            self.__controlador_processos.abrir_tela()
-        else:
-            self.__tela.mostrar_mensagem("Usuário não encontrado.")
+                if usuario_logado:
+                    self.__controlador_processos.set_usuario_logado(usuario_logado)
+                    self.__controlador_processos.abrir_tela()
+                else:
+                    self.__tela.mostrar_mensagem("Usuário não encontrado.")
+
+            elif opcao == 0:
+                self.__tela.mostrar_mensagem("Saindo do sistema...")
+                break
+
+            else:
+                self.__tela.mostrar_mensagem("Opção inválida.")

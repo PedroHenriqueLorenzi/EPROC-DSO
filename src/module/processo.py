@@ -1,5 +1,5 @@
 from datetime import date
-from src.module.documento.arquivamento import Arquivamento
+from module.documento.arquivamento import Arquivamento
 
 class Processo:
     def __init__(self, numero: int, data_abertura: str, status: str, juiz_responsavel, advogados, partes, tribunal):

@@ -1,29 +1,14 @@
-#arquivamento
+from module.documento.abstractDocumento import Documento
 
-class Arquivamento:
-    def __init__(self, ide: int, conteudo: str, data: str,, descricao: str, juiz: Juiz):
-        self.__ide = ide
-        self.__conteudo = conteudo
-        self.__data = data
-        self.__descricao = descricao
-        self.__juiz = juiz
+class Arquivamento(Documento):
+    def __init__(self, id, titulo, descricao, data_envio, autor, motivo):
+        super().__init__(id, titulo, descricao, data_envio, autor)
+        self.__motivo = motivo
 
     @property
-    
-    @.setter
+    def motivo(self):
+        return self.__motivo
 
-    @property
-    
-    @.setter
-
-    @property
-    
-    @.setter
-
-    @property
-    
-    @.setter
-
-    @property
-    
-    @.setter
+    @motivo.setter
+    def motivo(self, novo_motivo):
+        self.__motivo = novo_motivo

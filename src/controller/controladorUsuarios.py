@@ -1,15 +1,16 @@
 
 
-from src.view.telaUsuario import TelaUsuarios
-from src.module.usuario.advogado import Advogado
-from src.module.usuario.juiz import Juiz
-from src.module.usuario.reu import Reu
-from src.module.usuario.vitima import Vitima
+from view.telaUsuario import TelaUsuarios
+from module.usuario.advogado import Advogado
+from module.usuario.juiz import Juiz
+from module.usuario.reu import Reu
+from module.usuario.vitima import Vitima
 
 class ControladorUsuarios:
-    def __init__(self):
+    def __init__(self, tribunais: list):
         self.__usuarios = []
         self.__tela = TelaUsuarios()
+        self.__tribunais = tribunais
 
     def abrir_tela(self):
         while True:
@@ -28,12 +29,17 @@ class ControladorUsuarios:
                 self.__tela.mostrar_mensagem("Opção inválida.")
 
     def incluir_usuario(self):
-        dados = self.__tela.ler_dados_usuario()
-        if any(u.id() == dados["id"] or u.cpf() == dados["cpf"] for u in self.__usuarios):
+        dados = self.__tela.ler_dados_usuario(self.__tribunais)
+        if not dados:
+            return
+
+        if any(u.id == dados["id"] or u.cpf == dados["cpf"] for u in self.__usuarios):
             self.__tela.mostrar_mensagem("ID ou CPF já cadastrado.")
             return
 
         tipo = dados["tipo"]
+        del dados["tipo"]
+
         if tipo == "juiz":
             novo_usuario = Juiz(**dados)
         elif tipo == "advogado":
@@ -49,13 +55,14 @@ class ControladorUsuarios:
         self.__usuarios.append(novo_usuario)
         self.__tela.mostrar_mensagem(f"{tipo.capitalize()} cadastrado com sucesso.")
 
+
     def listar_usuarios(self):
-        lista = [f"{u.id()} - {u.nome()} ({u.__class__.__name__})" for u in self.__usuarios]
+        lista = [f"{u.id} - {u.nome} ({u.__class__.__name__})" for u in self.__usuarios]
         self.__tela.exibir_usuarios(lista)
 
     def listar_por_tipo(self):
         tipo = self.__tela.solicitar_tipo()
-        lista = [f"{u.id()} - {u.nome()} ({u.__class__.__name__})" for u in self.__usuarios if u.__class__.__name__.lower() == tipo.lower()]
+        lista = [f"{u.id} - {u.nome} ({u.__class__.__name__})" for u in self.__usuarios if u.__class__.__name__.lower() == tipo.lower()]
         self.__tela.exibir_usuarios(lista)
 
     def remover_usuario(self):
@@ -69,6 +76,6 @@ class ControladorUsuarios:
 
     def buscar_usuario_por_id(self, id_usuario):
         for u in self.__usuarios:
-            if u.id() == id_usuario:
+            if u.id == id_usuario:
                 return u
         return None

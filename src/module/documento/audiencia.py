@@ -1,7 +1,9 @@
-from abstractDocumento import Documento, Usuario
+from module.documento.abstractDocumento import Documento
+from module.usuario.abstractUsuario import Usuario
+from module.usuario.juiz import Juiz
 
 class Audiencia(Documento):
-    def __init__(self, id, titulo, descricao, data_envio, autor: Usuario, juiz_responsavel: Usuario, data):
+    def __init__(self, id, titulo, descricao, data_envio, autor: Usuario, juiz_responsavel: Juiz, data):
         super().__init__(id, titulo, descricao, data_envio, autor)
         self.__juiz_responsavel = juiz_responsavel
         self.__data = data

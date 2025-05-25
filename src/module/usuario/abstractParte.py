@@ -1,4 +1,4 @@
-from src.module.usuario.abstractUsuario import Usuario
+from module.usuario.abstractUsuario import Usuario
 
 class Parte(Usuario):
     def __init__(self, id: int, nome: str, cpf: int, data_nascimento: str):

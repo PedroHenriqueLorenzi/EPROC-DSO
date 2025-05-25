@@ -1,4 +1,4 @@
-from abstractDocumento import Documento, Usuario
+from module.documento.abstractDocumento import Documento
 
 class Defesa(Documento):
     def __init__(self, id, titulo, descricao, data_envio, autor, reu):

@@ -1,4 +1,4 @@
-from abstractDocumento import Documento, Usuario
+from module.documento.abstractDocumento import Documento
 
 class Acusacao(Documento):
 
