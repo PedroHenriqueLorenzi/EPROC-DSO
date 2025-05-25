@@ -48,41 +48,64 @@ class ControladorProcessos:
                 self.__tela.mostrar_mensagem("Opção inválida.")
 
     def criar_processo(self):
-        dados = self.__tela.ler_dados_processo()
+        tipo = self.__usuario_logado.__class__.__name__.lower()
+        if tipo not in ["juiz", "advogado", "promotor"]:
+            self.__tela.mostrar_mensagem("Você não tem permissão para criar processos.")
+            return
+
+        numero = self.__tela.solicitar_numero_processo()
+        data_abertura = self.__tela.solicitar_data_processo()
+        juiz = self.__tela.solicitar_juiz(self.__controlador_usuarios.get_usuarios())
+        if not juiz:
+            self.__tela.mostrar_mensagem("Juiz não encontrado.")
+            return
+
         tribunal = self.__tela.selecionar_tribunal(self.__tribunais)
         if not tribunal:
             self.__tela.mostrar_mensagem("Tribunal não encontrado.")
             return
 
-        # Seleção de advogados
         advogados = [u for u in self.__controlador_usuarios.get_usuarios() if u.__class__.__name__.lower() == "advogado"]
         if not advogados:
-            self.__tela.mostrar_mensagem("Nenhum advogado cadastrado.")
-            if self.__tela.perguntar_sim_ou_nao("Deseja cadastrar um advogado agora? (s/n): "):
+            self.__tela.mostrar_mensagem(">>> Nenhum advogado cadastrado.")
+            if self.__tela.confirmar("Deseja cadastrar um advogado agora? (s/n): "):
                 self.__controlador_usuarios.incluir_usuario()
                 advogados = [u for u in self.__controlador_usuarios.get_usuarios() if u.__class__.__name__.lower() == "advogado"]
-        advogados_selecionados = self.__tela.selecionar_usuarios_por_id(advogados, "advogado")
+            else:
+                self.__tela.mostrar_mensagem("Operação cancelada.")
+                return
 
-        # Seleção de partes
+        selecionados = self.__tela.selecionar_usuarios_por_id(advogados, "advogado")
+        if not selecionados:
+            self.__tela.mostrar_mensagem("Nenhum advogado selecionado.")
+            return
+
         partes = [u for u in self.__controlador_usuarios.get_usuarios() if u.__class__.__name__.lower() in ["reu", "vitima"]]
         if not partes:
-            self.__tela.mostrar_mensagem("Nenhuma parte cadastrada.")
-            if self.__tela.perguntar_sim_ou_nao("Deseja cadastrar uma parte agora? (s/n): "):
+            self.__tela.mostrar_mensagem(">>> Nenhuma parte cadastrada.")
+            if self.__tela.confirmar("Deseja cadastrar uma parte agora? (s/n): "):
                 self.__controlador_usuarios.incluir_usuario()
                 partes = [u for u in self.__controlador_usuarios.get_usuarios() if u.__class__.__name__.lower() in ["reu", "vitima"]]
+            else:
+                self.__tela.mostrar_mensagem("Operação cancelada.")
+                return
+
         partes_selecionadas = self.__tela.selecionar_usuarios_por_id(partes, "parte")
+        if not partes_selecionadas:
+            self.__tela.mostrar_mensagem("Nenhuma parte selecionada.")
+            return
 
         processo = Processo(
-            numero=dados["numero"],
-            data_abertura=dados["data_abertura"],
+            numero=numero,
+            data_abertura=data_abertura,
             status="Ativo",
-            juiz_responsavel=dados["juiz"],
-            advogados=advogados_selecionados,
+            juiz_responsavel=juiz,
+            advogados=selecionados,
             partes=partes_selecionadas,
             tribunal=tribunal
         )
         self.__processos.append(processo)
-        self.__tela.mostrar_mensagem("Processo criado com sucesso.")
+        self.__tela.mostrar_mensagem(">>> Processo criado com sucesso.")
 
     def listar_processos(self):
         processos_usuario = []

@@ -25,8 +25,12 @@ class ControladorSistema:
                 usuario_logado = self.__controlador_usuarios.buscar_usuario_por_id(id_usuario)
 
                 if usuario_logado:
-                    self.__controlador_processos.set_usuario_logado(usuario_logado)
-                    self.__controlador_processos.abrir_tela()
+                    tipo = usuario_logado.__class__.__name__.lower()
+                    if tipo in ["juiz", "advogado", "promotor"]:
+                        self.__controlador_processos.set_usuario_logado(usuario_logado)
+                        self.__controlador_processos.abrir_tela()
+                    else:
+                        self.__tela.mostrar_mensagem(f"Usuário do tipo '{tipo}' não tem permissão para acessar processos.")
                 else:
                     self.__tela.mostrar_mensagem("Usuário não encontrado.")
 
