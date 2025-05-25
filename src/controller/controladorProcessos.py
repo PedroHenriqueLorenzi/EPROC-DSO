@@ -7,7 +7,7 @@ from src.module.documento.acusacao import Acusacao
 from src.module.documento.defesa import Defesa
 from src.module.documento.audiencia import Audiencia
 from src.module.documento.sentenca import Sentenca
-from src.module.arquivamento import Arquivamento
+from src.module.documento.arquivamento import Arquivamento
 from src.module.tribunal import Tribunal
 from datetime import date
 
@@ -65,13 +65,13 @@ class ControladorProcessos:
         self.__tela.mostrar_mensagem("Processo criado com sucesso.")
 
     def listar_processos(self):
-        lista_str = [f"{p.numero()} - Status: {p.status()} - Tribunal: {p.tribunal().nome()}" for p in self.__processos]
+        lista_str = [f"{p.numero} - Status: {p.status} - Tribunal: {p.tribunal.nome}" for p in self.__processos]
         self.__tela.exibir_lista_processos(lista_str)
 
     def selecionar_processo(self):
         numero = self.__tela.selecionar_numero_processo()
         for processo in self.__processos:
-            if processo.numero() == numero:
+            if processo.numero == numero:
                 return processo
         self.__tela.mostrar_mensagem("Processo não encontrado.")
         return None
@@ -81,8 +81,12 @@ class ControladorProcessos:
         if not processo:
             return
 
-        if processo.status().lower() != "ativo":
+        if processo.status.lower() != "ativo":
             self.__tela.mostrar_mensagem("Não é possível adicionar documentos a um processo encerrado.")
+            return
+
+        if any(isinstance(d, Sentenca) for d in processo.documentos):
+            self.__tela.mostrar_mensagem("Este processo já possui sentença. Não é possível adicionar novos documentos.")
             return
 
         tipo, dados_doc = self.__tela.ler_dados_documento()
@@ -95,18 +99,38 @@ class ControladorProcessos:
                 return
             doc = Sentenca(**dados_doc)
 
-        else:
-            doc_class = {
-                "acusacao": Acusacao,
-                "defesa": Defesa,
-                "audiencia": Audiencia,
-                "arquivamento": Arquivamento
-            }.get(tipo)
-            if doc_class:
-                doc = doc_class(**dados_doc)
-            else:
-                self.__tela.mostrar_mensagem("Tipo de documento inválido.")
+        elif tipo == "acusacao":
+            if not isinstance(self.__usuario_logado, Advogado):
+                self.__tela.mostrar_mensagem("Apenas advogados podem emitir acusações.")
                 return
+            if not self._possui_audiencia_realizada(processo):
+                self.__tela.mostrar_mensagem("A acusação só pode ocorrer após a audiência.")
+                return
+            doc = Acusacao(**dados_doc)
+
+        elif tipo == "defesa":
+            if not isinstance(self.__usuario_logado, Advogado):
+                self.__tela.mostrar_mensagem("Apenas advogados podem apresentar defesa.")
+                return
+            if not self._possui_audiencia_realizada(processo):
+                self.__tela.mostrar_mensagem("A defesa só pode ocorrer após a audiência.")
+                return
+            doc = Defesa(**dados_doc)
+
+        elif tipo == "audiencia":
+            if not isinstance(self.__usuario_logado, Juiz):
+                self.__tela.mostrar_mensagem("Apenas juízes podem marcar audiências.")
+                return
+            dados_doc["data"] = date.today().isoformat()
+            doc = Audiencia(**dados_doc)
+
+        elif tipo == "arquivamento":
+            self.__tela.mostrar_mensagem("Arquivamentos são gerados automaticamente ao encerrar o processo.")
+            return
+
+        else:
+            self.__tela.mostrar_mensagem("Tipo de documento inválido.")
+            return
 
         processo.adicionar_documento(doc)
         self.__tela.mostrar_mensagem(f"{tipo.capitalize()} adicionada ao processo.")
@@ -115,12 +139,50 @@ class ControladorProcessos:
         processo = self.selecionar_processo()
         if processo:
             processo.encerrar()
-            self.__tela.mostrar_mensagem("Processo encerrado com sucesso.")
+            self.__tela.mostrar_mensagem("Processo encerrado e arquivado com sucesso.")
 
     def gerar_relatorio(self):
-        relatorio = []
+        while True:
+            opcao = self.__tela.mostrar_menu_relatorio()
+            if opcao == 1:
+                self._relatorio_por_status()
+            elif opcao == 2:
+                self._relatorio_por_juiz()
+            elif opcao == 3:
+                self._relatorio_sem_audiencia()
+            elif opcao == 4:
+                self._relatorio_com_sentenca()
+            elif opcao == 0:
+                break
+            else:
+                self.__tela.mostrar_mensagem("Opção inválida.")
+
+    def _relatorio_por_status(self):
+        status = self.__tela.solicitar_status()
+        lista = [p for p in self.__processos if p.status.lower() == status.lower()]
+        self.__tela.exibir_relatorio([f"{p.numero} - {p.status}" for p in lista])
+
+    def _relatorio_por_juiz(self):
+        nome = self.__tela.solicitar_nome_juiz()
+        lista = [p for p in self.__processos if p.juiz_responsavel.nome.lower() == nome.lower()]
+        self.__tela.exibir_relatorio([f"{p.numero} - Juiz: {p.juiz_responsavel.nome}" for p in lista])
+
+    def _relatorio_sem_audiencia(self):
+        lista = []
         for p in self.__processos:
-            relatorio.append(
-                f"Processo {p.numero()} - Status: {p.status()} - Juiz: {p.juiz_responsavel().nome()} - Tribunal: {p.tribunal().nome()}"
-            )
-        self.__tela.exibir_relatorio(relatorio)
+            if not any(isinstance(d, Audiencia) for d in p.documentos):
+                lista.append(p)
+        self.__tela.exibir_relatorio([f"{p.numero} - Sem audiência" for p in lista])
+
+    def _relatorio_com_sentenca(self):
+        lista = []
+        for p in self.__processos:
+            if any(isinstance(d, Sentenca) for d in p.documentos):
+                lista.append(p)
+        self.__tela.exibir_relatorio([f"{p.numero} - Contém sentença" for p in lista])
+
+    def _possui_audiencia_realizada(self, processo):
+        for doc in processo.documentos:
+            if isinstance(doc, Audiencia) and doc.data <= date.today().isoformat():
+                return True
+        return False
