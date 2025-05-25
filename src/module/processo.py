@@ -1,75 +1,64 @@
-#processo
+from datetime import date
+from src.module.documento.arquivamento import Arquivamento
 
 class Processo:
-    def __init__(self, numero_processo: int, data_abertura_processo: str, juiz_responsavel: Juiz, promotor_responsavel, tribunal_responsavel):
-        self.__numero_processo = numero_processo
-        self.__data_abertura_processo = data_abertura_processo
-
-        self.__promotor_responsavel = promotor_responsavel
+    def __init__(self, numero: int, data_abertura: str, status: str, juiz_responsavel, advogados, partes, tribunal):
+        self.__numero = numero
+        self.__data_abertura = data_abertura
+        self.__status = status
         self.__juiz_responsavel = juiz_responsavel
-        self.__arquivamento = None
-        self.__processo_arquivado = False
-        self.__advogados = []
-        self.__partes = []
+        self.__advogados = advogados or []
+        self.__partes = partes or []
         self.__documentos = []
-        self.__tribunal_responsavel = tribunal_responsavel
-        #self.__movimentacoes = []
+        self.__tribunal = tribunal
+        self.__arquivamento = None
 
     @property
-    
-    @.setter
+    def numero(self):
+        return self.__numero
 
     @property
-    
-    @.setter
+    def status(self):
+        return self.__status
+
+    def encerrar(self, motivo="Encerramento do processo."):
+        self.__status = "Encerrado"
+        arquivamento = Arquivamento(
+            id=len(self.__documentos) + 1,
+            titulo="Arquivamento automático",
+            descricao=motivo,
+            data_envio=date.today().isoformat(),
+            autor=self.__juiz_responsavel,
+            motivo=motivo
+        )
+        self.adicionar_documento(arquivamento)
+        self.__arquivamento = arquivamento
 
     @property
-    
-    @.setter
+    def juiz_responsavel(self):
+        return self.__juiz_responsavel
 
     @property
-    
-    @.setter
+    def tribunal(self):
+        return self.__tribunal
 
     @property
-    
-    @.setter
+    def documentos(self):
+        return self.__documentos
 
-    def adicionar_reu(self, reu):
-        pass
+    @property
+    def partes(self):
+        return self.__partes
 
-    def adicionar_vitima(self, vitima):
-        pass
+    @property
+    def advogados(self):
+        return self.__advogados
+
+    def adicionar_documento(self, doc):
+        self.__documentos.append(doc)
+
+    def adicionar_parte(self, parte):
+        self.__partes.append(parte)
 
     def adicionar_advogado(self, advogado):
-        pass
-
-    def trocar_juiz_responsavel(self, juiz):
-        pass
-
-    #def trocar_promotor_responsavel(self, MP):
-
-    def trocar_tribunal_responsavel(self, tribunal):
-        pass
-
-
-
-    def adicionar_acusacao(self, documento):
-        pass
-
-    def adicionar_audiencia(self, audiencia):
-        pass
-
-    def adicionar_defesa(self, defesa):
-        pass
-
-    #def registrar_movimentacao(self, movimentacao):
-        #pass
-
-    def adicionar_sentenca(self, sentenca):
-        pass
-
-
-
-    def adicionar_arquivamento(self, arquivamento):
-        pass
+        self.__advogados.append(advogado)

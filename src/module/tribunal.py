@@ -11,7 +11,7 @@ class Tribunal:
         return self.__id
     @id.setter
     def id(self, nova_id: int):
-        if isinstance(nova_id, int): self.__id = nova_ide
+        if isinstance(nova_id, int): self.__id = nova_id
 
     @property
     def nome(self):
