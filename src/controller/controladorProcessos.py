@@ -261,19 +261,30 @@ class ControladorProcessos:
     def exibir_detalhes_processo(self):
         processo = self.selecionar_processo()
         if not processo:
+            self.__tela.mostrar_mensagem("Processo não encontrado.")
             return
 
-        info = f"""
-            Número: {processo.numero}
-            Status: {processo.status}
-            Data de Abertura: {processo.data_abertura}
-            Juiz Responsável: {processo.juiz_responsavel.nome}
-            Tribunal: {processo.tribunal.nome} - {processo.tribunal.localidade}
-            Advogados: {', '.join([a.nome for a in processo.advogados]) or 'Nenhum'}
-            Partes: {', '.join([p.nome for p in processo.partes]) or 'Nenhuma'}
-            Documentos: {', '.join([d.titulo for d in processo.documentos]) or 'Nenhum'}
-            """
-        self.__tela.mostrar_mensagem(info.strip())
+        print("\n--- Detalhes do Processo ---")
+        print(f"Número: {processo.numero()}")
+        print(f"Data de Abertura: {processo.data_abertura()}")
+        print(f"Status: {processo.status()}")
+        print(f"Tribunal: {processo.tribunal().nome} ({processo.tribunal().localidade})")
+        print(f"Juiz Responsável: {processo.juiz_responsavel.nome} (ID {processo.juiz_responsavel.id})")
+
+        print("\nAdvogados:")
+        for adv in processo.advogados():
+            print(f"- {adv.nome} (ID {adv.id})")
+
+        print("\nPartes:")
+        for parte in processo.partes():
+            print(f"- {parte.nome} ({parte.__class__.__name__}) (ID {parte.id})")
+
+        print("\nDocumentos:")
+        if not processo.documentos():
+            print("Nenhum documento anexado.")
+        else:
+            for doc in processo.documentos():
+                print(f"- {doc.__class__.__name__}: {doc.titulo} (ID {doc.id})")
 
     def encerrar_processo(self):
         processo = self.selecionar_processo()
@@ -327,7 +338,7 @@ class ControladorProcessos:
 
         linhas = [f"{p.numero} - Status: {p.status} - Tribunal: {p.tribunal.nome}" for p in lista]
         self.__tela.exibir_relatorio(linhas)
-        
+
     def _relatorio_sem_audiencia(self):
         lista = []
         for p in self.__processos:
