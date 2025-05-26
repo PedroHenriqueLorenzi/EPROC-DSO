@@ -14,77 +14,49 @@ class TelaUsuarios:
     def mostrar_mensagem(self, mensagem: str):
         print(f">>> {mensagem}")
 
-    def ler_dados_usuario(self, tribunais=None) -> dict:
+    def ler_dados_usuario(self, usuarios: list, tribunais: list) -> dict:
         print("\n--- Cadastro de Usuário ---")
 
         while True:
             try:
                 id_usuario = int(input("ID (número inteiro): "))
-                if id_usuario < 0:
-                    raise ValueError
+                if any(u.id == id_usuario for u in usuarios):
+                    print(">>> ID já cadastrado. Tente novamente.")
+                    continue
                 break
             except ValueError:
-                print("ID inválido. Digite um número inteiro positivo.")
-
-        while True:
-            nome = input("Nome: ").strip()
-            if nome.replace(" ", "").isalpha():
-                break
-            print("Nome deve conter apenas letras.")
+                print(">>> ID inválido. Digite um número inteiro.")
 
         while True:
             cpf = input("CPF (apenas números): ").strip()
-            if cpf.isdigit():
-                break
-            print("CPF deve conter apenas números.")
+            if not cpf.isdigit():
+                print(">>> CPF deve conter apenas números.")
+                continue
+            if any(u.cpf == int(cpf) for u in usuarios):
+                print(">>> CPF já cadastrado. Tente novamente.")
+                continue
+            break
+
+        nome = input("Nome: ")
 
         while True:
-            data_nascimento = input("Data de nascimento (AAAA-MM-DD): ").strip()
+            data = input("Data de nascimento (AAAA-MM-DD): ").strip()
             try:
                 from datetime import datetime
-                datetime.strptime(data_nascimento, "%Y-%m-%d")
+                datetime.strptime(data, "%Y-%m-%d")
                 break
             except ValueError:
-                print("Data inválida. Use o formato correto: AAAA-MM-DD.")
+                print(">>> Data inválida. Use o formato correto: AAAA-MM-DD.")
 
-        while True:
-            tipo = input("Tipo (juiz/advogado/vitima/reu): ").lower()
-            if tipo in ["juiz", "advogado", "vitima", "reu"]:
-                break
-            print("Tipo inválido. Escolha entre: juiz, advogado, vitima, reu.")
+        tipo = input("Tipo (juiz/advogado/vitima/reu): ").strip().lower()
 
-        dados = {
+        return {
             "id": id_usuario,
             "nome": nome,
             "cpf": int(cpf),
-            "data_nascimento": data_nascimento,
+            "data_nascimento": data,
             "tipo": tipo
         }
-
-        if tipo == "juiz" and tribunais:
-            print("\nTribunais disponíveis:")
-            for t in tribunais:
-                print(f"{t.id} - {t.nome} ({t.localidade})")
-            while True:
-                try:
-                    id_tribunal = int(input("Escolha o ID do tribunal atribuído ao juiz: "))
-                    for t in tribunais:
-                        if t.id == id_tribunal:
-                            dados["tribunal_atribuido"] = t
-                            return dados
-                    print("Tribunal não encontrado.")
-                except ValueError:
-                    print("Entrada inválida. Digite um número.")
-        if tipo == "advogado":
-            while True:
-                oab = input("Número da OAB: ").strip()
-                if oab.isdigit():
-                    dados["oab"] = int(oab)
-                    break
-                print("OAB deve conter apenas números.")
-
-        return dados
-
 
     def exibir_usuarios(self, lista: list):
         print("\n--- Lista de Usuários ---")
@@ -101,3 +73,15 @@ class TelaUsuarios:
             return int(input("Digite o ID do usuário: "))
         except ValueError:
             return -1
+    def selecionar_tribunal(self, tribunais: list):
+        print("\nTribunais disponíveis:")
+        for t in tribunais:
+            print(f"{t.id} - {t.nome} ({t.localidade})")
+        try:
+            id_tribunal = int(input("Escolha o ID do tribunal atribuído ao juiz: "))
+            for t in tribunais:
+                if t.id == id_tribunal:
+                    return t
+        except ValueError:
+            pass
+        return None

@@ -177,7 +177,15 @@ class ControladorProcessos:
             if not isinstance(self.__usuario_logado, Juiz):
                 self.__tela.mostrar_mensagem("Apenas juízes podem marcar audiências.")
                 return
-            dados_doc["data"] = date.today().isoformat()
+            dados_doc["data"] = self.__tela.solicitar_data("Data da audiência (AAAA-MM-DD): ")
+            dados_doc["juiz_responsavel"] = self.__usuario_logado
+
+            advogados = [u for u in self.__controlador_usuarios.get_usuarios() if u.__class__.__name__.lower() == "advogado"]
+            if not advogados:
+                self.__tela.mostrar_mensagem("Não há advogados disponíveis.")
+                return
+            dados_doc["advogado_responsavel"] = self.__tela.selecionar_usuarios_por_id(advogados, "advogado")[0]
+
             doc = Audiencia(**dados_doc)
 
         elif tipo == "arquivamento":

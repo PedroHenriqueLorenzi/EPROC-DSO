@@ -1,5 +1,3 @@
-
-
 from view.telaUsuario import TelaUsuarios
 from module.usuario.advogado import Advogado
 from module.usuario.juiz import Juiz
@@ -29,7 +27,7 @@ class ControladorUsuarios:
                 self.__tela.mostrar_mensagem("Opção inválida.")
 
     def incluir_usuario(self):
-        dados = self.__tela.ler_dados_usuario(self.__tribunais)
+        dados = self.__tela.ler_dados_usuario(self.__usuarios, self.__tribunais)
         if not dados:
             return
 
@@ -41,13 +39,23 @@ class ControladorUsuarios:
         del dados["tipo"]
 
         if tipo == "juiz":
+            tribunal = self.__tela.selecionar_tribunal(self.__tribunais)
+            if tribunal is None:
+                self.__tela.mostrar_mensagem("Tribunal inválido. Operação cancelada.")
+                return
+            dados["tribunal_atribuido"] = tribunal
             novo_usuario = Juiz(**dados)
+
         elif tipo == "advogado":
+            dados["oab"] = input("Digite o número da OAB do advogado: ")
             novo_usuario = Advogado(**dados)
+
         elif tipo == "vitima":
             novo_usuario = Vitima(**dados)
+
         elif tipo == "reu":
             novo_usuario = Reu(**dados)
+
         else:
             self.__tela.mostrar_mensagem("Tipo inválido.")
             return

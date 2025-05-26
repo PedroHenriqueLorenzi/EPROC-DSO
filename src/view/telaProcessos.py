@@ -114,14 +114,12 @@ class TelaProcessos:
         titulo = input("Título: ")
         descricao = input("Descrição: ")
         data_envio = input("Data de envio (AAAA-MM-DD): ")
-        conteudo = input("Conteúdo: ")
 
         dados = {
             "id": id_doc,
             "titulo": titulo,
             "descricao": descricao,
             "data_envio": data_envio,
-            "conteudo": conteudo
         }
 
         if tipo == "audiencia":
@@ -154,3 +152,12 @@ class TelaProcessos:
             print("Nenhum dado encontrado.")
         for linha in linhas:
             print(linha)
+    def solicitar_data(self, mensagem="Digite a data (AAAA-MM-DD): "):
+        while True:
+            data = input(mensagem).strip()
+            try:
+                from datetime import datetime
+                datetime.strptime(data, "%Y-%m-%d")
+                return data
+            except ValueError:  
+                print(">>> Data inválida. Use o formato correto: AAAA-MM-DD.")

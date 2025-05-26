@@ -1,8 +1,8 @@
 from module.documento.abstractDocumento import Documento
 
 class Sentenca(Documento):
-    def __init__(self, id, titulo, descricao, data_envio, autor, conteudo, reu, vitima):
-        super().__init__(id, titulo, descricao, data_envio, autor, conteudo)  
+    def __init__(self, id, titulo, descricao, data_envio, autor, reu, vitima):
+        super().__init__(id, titulo, descricao, data_envio, autor)  
         self.__reu = reu
         self.__vitima = vitima          
 
