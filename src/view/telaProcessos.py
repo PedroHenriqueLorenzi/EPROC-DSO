@@ -1,13 +1,17 @@
 from datetime import datetime
 
 class TelaProcessos:
-    def mostrar_menu(self) -> int:
+    def mostrar_menu(self, usuario_logado=None) -> int:
         print("\n=== MENU DE PROCESSOS ===")
+        if usuario_logado:
+            print(f"Operando como: {usuario_logado.id} - {usuario_logado.nome} ({usuario_logado.__class__.__name__})")
         print("1 - Criar novo processo")
         print("2 - Listar processos")
         print("3 - Adicionar documento")
         print("4 - Encerrar processo")
         print("5 - Gerar relatório")
+        print("6 - Editar processo")
+        print("7 - Mostrar detalhes processo")
         print("0 - Voltar")
         try:
             return int(input("Escolha uma opção: "))
@@ -128,12 +132,25 @@ class TelaProcessos:
 
         return tipo, dados
 
-    def mostrar_menu_relatorio(self) -> int:
+    def mostrar_menu_relatorio(self, usuario_logado=None) -> int:
         print("\n--- Relatórios Disponíveis ---")
+        if usuario_logado:
+            print(f"Operando como: {usuario_logado.id} - {usuario_logado.nome} ({usuario_logado.__class__.__name__})")
         print("1 - Por status")
         print("2 - Por juiz")
         print("3 - Sem audiência")
         print("4 - Com sentença")
+        print("0 - Voltar")
+        try:
+            return int(input("Escolha uma opção: "))
+        except ValueError:
+            return -1
+    def mostrar_menu_edicao(self):
+        print("\n--- Editar Processo ---")
+        print("1 - Adicionar advogado")
+        print("2 - Adicionar parte")
+        print("3 - Remover advogado")
+        print("4 - Remover parte")
         print("0 - Voltar")
         try:
             return int(input("Escolha uma opção: "))
@@ -161,3 +178,8 @@ class TelaProcessos:
                 return data
             except ValueError:  
                 print(">>> Data inválida. Use o formato correto: AAAA-MM-DD.")
+    def solicitar_id(self) -> int:
+        try:
+            return int(input("Digite o ID do juiz: "))
+        except ValueError:
+            return -1

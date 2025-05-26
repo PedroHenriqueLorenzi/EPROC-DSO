@@ -62,3 +62,11 @@ class Processo:
 
     def adicionar_advogado(self, advogado):
         self.__advogados.append(advogado)
+    
+    def remover_advogado(self, advogado):
+        if advogado in self.__advogados:
+            self.__advogados.remove(advogado)
+
+    def remover_parte(self, parte):
+        if parte in self.__partes:
+            self.__partes.remove(parte)
