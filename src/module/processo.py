@@ -54,6 +54,11 @@ class Processo:
     def advogados(self):
         return self.__advogados
 
+    @property
+    def data_abertura(self):
+        return self.__data_abertura
+
+
     def adicionar_documento(self, doc):
         self.__documentos.append(doc)
 

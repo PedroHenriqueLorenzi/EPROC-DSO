@@ -264,26 +264,24 @@ class ControladorProcessos:
             self.__tela.mostrar_mensagem("Processo não encontrado.")
             return
 
-        print("\n--- Detalhes do Processo ---")
-        print(f"Número: {processo.numero()}")
-        print(f"Data de Abertura: {processo.data_abertura()}")
-        print(f"Status: {processo.status()}")
-        print(f"Tribunal: {processo.tribunal().nome} ({processo.tribunal().localidade})")
+        print(f"Número: {processo.numero}")
+        print(f"Data de Abertura: {processo.data_abertura}")
+        print(f"Status: {processo.status}")
+        print(f"Tribunal: {processo.tribunal.nome} ({processo.tribunal.localidade})")
         print(f"Juiz Responsável: {processo.juiz_responsavel.nome} (ID {processo.juiz_responsavel.id})")
-
         print("\nAdvogados:")
-        for adv in processo.advogados():
+        for adv in processo.advogados:
             print(f"- {adv.nome} (ID {adv.id})")
 
         print("\nPartes:")
-        for parte in processo.partes():
+        for parte in processo.partes:
             print(f"- {parte.nome} ({parte.__class__.__name__}) (ID {parte.id})")
 
         print("\nDocumentos:")
-        if not processo.documentos():
+        if not processo.documentos:
             print("Nenhum documento anexado.")
         else:
-            for doc in processo.documentos():
+            for doc in processo.documentos:
                 print(f"- {doc.__class__.__name__}: {doc.titulo} (ID {doc.id})")
 
     def encerrar_processo(self):
