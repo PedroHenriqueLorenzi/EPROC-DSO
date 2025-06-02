@@ -9,7 +9,6 @@ class Audiencia(Documento):
         self.__data = data
         self.__partes_envolvidas = []
 
-
     @property
     def juiz_responsavel(self):
         return self.__juiz_responsavel

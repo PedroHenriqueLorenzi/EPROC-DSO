@@ -4,7 +4,7 @@ class Advogado(Usuario):
     def __init__(self, id: int, nome: str, cpf: int, data_nascimento: str, oab: str):
         super().__init__(id= id, nome= nome, cpf= cpf, data_nascimento= data_nascimento)
         self.__oab = oab
-        
+
     @property
     def oab(self):
         return self.__oab

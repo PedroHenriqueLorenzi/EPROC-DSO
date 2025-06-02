@@ -167,7 +167,19 @@ class ControladorProcessos:
             if not isinstance(self.__usuario_logado, Juiz):
                 self.__tela.mostrar_mensagem("Apenas juízes podem emitir sentenças.")
                 return
-            doc = Sentenca(**dados_doc)
+
+            partes = processo.partes
+            reus = [p for p in partes if p.__class__.__name__.lower() == "reu"]
+            vitimas = [p for p in partes if p.__class__.__name__.lower() == "vitima"]
+
+            if not reus or not vitimas:
+                self.__tela.mostrar_mensagem("Sentença requer ao menos um réu e uma vítima no processo.")
+                return
+
+            reu = self.__tela.selecionar_usuarios_por_id(reus, "réu")[0]
+            vitima = self.__tela.selecionar_usuarios_por_id(vitimas, "vítima")[0]
+
+            doc = Sentenca(**dados_doc, reu=reu, vitima=vitima)
 
         elif tipo == "acusacao":
             if not isinstance(self.__usuario_logado, Advogado):
@@ -185,10 +197,18 @@ class ControladorProcessos:
             if not isinstance(self.__usuario_logado, Juiz):
                 self.__tela.mostrar_mensagem("Apenas juízes podem marcar audiências.")
                 return
+
             dados_doc["data"] = self.__tela.solicitar_data("Data da audiência (AAAA-MM-DD): ")
             dados_doc["juiz_responsavel"] = self.__usuario_logado
 
             advogados = [u for u in self.__controlador_usuarios.get_usuarios() if u.__class__.__name__.lower() == "advogado"]
+            if not advogados:
+                self.__tela.mostrar_mensagem("Não há advogados disponíveis.")
+                return
+
+            advogado_responsavel = self.__tela.selecionar_usuarios_por_id(advogados, "advogado")[0]
+            doc = Audiencia(**dados_doc)
+
             if not advogados:
                 self.__tela.mostrar_mensagem("Não há advogados disponíveis.")
                 return
