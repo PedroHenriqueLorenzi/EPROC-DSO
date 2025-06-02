@@ -1,4 +1,5 @@
-#processo
+from datetime import date
+from module.documento.arquivamento import Arquivamento
 
 from src.module.usuario.juiz import Juiz
 from src.module.usuario.advogado import Advogado
@@ -16,79 +17,77 @@ from src.module.arquivamento import Arquivamento
 
 
 class Processo:
-    def __init__(self, numero_processo: int, data_abertura_processo: str, juiz_responsavel: Juiz, promotor_responsavel, tribunal_responsavel):
-        self.__numero_processo = numero_processo
-        self.__data_abertura_processo = data_abertura_processo
-
-        self.__promotor_responsavel = promotor_responsavel
+    def __init__(self, numero: int, data_abertura: str, status: str, juiz_responsavel, advogados, partes, tribunal):
+        self.__numero = numero
+        self.__data_abertura = data_abertura
+        self.__status = status
         self.__juiz_responsavel = juiz_responsavel
-        self.__arquivamento = None
-        self.__processo_encerrado = False
-        self.__advogados = []
-        self.__partes = []
+        self.__advogados = advogados or []
+        self.__partes = partes or []
         self.__documentos = []
-        self.__tribunal_responsavel = tribunal_responsavel
-        #self.__movimentacoes = []
+        self.__tribunal = tribunal
+        self.__arquivamento = None
 
     @property
-    
-    @.setter
+    def numero(self):
+        return self.__numero
 
     @property
-    
-    @.setter
+    def status(self):
+        return self.__status
+
+    def encerrar(self, motivo="Encerramento do processo."):
+        self.__status = "Encerrado"
+        arquivamento = Arquivamento(
+            id=len(self.__documentos) + 1,
+            titulo="Arquivamento automático",
+            descricao=motivo,
+            data_envio=date.today().isoformat(),
+            autor=self.__juiz_responsavel,
+            motivo=motivo
+        )
+        self.adicionar_documento(arquivamento)
+        self.__arquivamento = arquivamento
 
     @property
-    
-    @.setter
+    def juiz_responsavel(self):
+        return self.__juiz_responsavel
 
     @property
-    
-    @.setter
+    def tribunal(self):
+        return self.__tribunal
 
     @property
-    
-    @.setter
+    def documentos(self):
+        return self.__documentos
 
-    def adicionar_reu(self, reu):
-        if isinstance(reu, Reu) and not self.__processo_encerrado: self.__partes.append(reu)
+    @property
+    def partes(self):
+        return self.__partes
 
-    def adicionar_vitima(self, vitima):
-        if isinstance(vitima, Vitima) and not self.__processo_encerrado: self.__partes.append(vitima)
+    @property
+    def advogados(self):
+        return self.__advogados
+
+    @property
+    def data_abertura(self):
+        return self.__data_abertura
+
+    def adicionar_documento(self, doc):
+        self.__documentos.append(doc)
+
+
+    def adicionar_parte(self, parte):
+        self.__partes.append(parte)
 
     def adicionar_advogado(self, advogado):
-        if isinstance(advogado, Advogado) and not self.__processo_encerrado: self.__advogados.append(advogado)
+        self.__advogados.append(advogado)
+    
+    def remover_advogado(self, advogado):
+        if advogado in self.__advogados:
+            self.__advogados.remove(advogado)
+            
+    def remover_parte(self, parte):
+        if parte in self.__partes:
+            self.__partes.remove(parte)
 
-    def trocar_juiz_responsavel(self, juiz): ####
-        if isinstance(juiz, Juiz) and not self.__processo_encerrado: self.__juiz_responsavel = juiz
-
-    def trocar_promotor_responsavel(self, promotor): ####
-        if isinstance(promotor, Promotor) and not self.__processo_encerrado: self.__promotor_responsavel = promotor
-
-    def trocar_tribunal_responsavel(self, tribunal): ####
-        if isinstance(tribunal, Tribunal) and not self.__processo_encerrado: self.__tribunal_responsavel = tribunal
-
-
-
-
-    def adicionar_acusacao(self, acusacao):
-        if isinstance(acusacao, Acusacao) and not self.__processo_encerrado: self.__documentos.append(acusacao)
-
-    def adicionar_audiencia(self, audiencia):
-        if isinstance(audiencia, Audiencia) and not self.__processo_encerrado: self.__documentos.append(audiencia)
-
-    def adicionar_defesa(self, defesa):
-        if isinstance(defesa, Defesa) and not self.__processo_encerrado: self.__documentos.append(defesa)
-
-    #def registrar_movimentacao(self, movimentacao):
-        #pass
-
-    def adicionar_sentenca(self, sentenca):
-        if isinstance(sentenca, Sentenca) and not self.__processo_encerrado: self.__documentos.append(sentenca)
-
-
-
-    def adicionar_arquivamento(self, arquivamento):
-        if isinstance(arquivamento, Arquivamento) and not self.__processo_encerrado:
-            self.__arquivamento.append(arquivamento)
-            self.__processo_encerrado = True

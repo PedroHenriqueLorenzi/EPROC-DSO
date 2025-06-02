@@ -2,18 +2,18 @@ from abc import ABC, abstractmethod
 
 class Usuario(ABC):
     @abstractmethod
-    def __init__(self, ide: int, nome: str, cpf: int, data_nascimento: str):
-        self.__ide = ide
+    def __init__(self, id: int, nome: str, cpf: int, data_nascimento: str):
+        self.__id = id
         self.__nome = nome
         self.__cpf = cpf
         self.__data_nascimento = data_nascimento
 
     @property
-    def ide(self):
-        return self.__ide
-    @ide.setter
-    def ide(self, nova_ide):
-        if isinstance(nova_ide, int): self.__ide = nova_ide
+    def id(self):
+        return self.__id
+    @id.setter
+    def id(self, nova_id):
+        if isinstance(nova_id, int): self.__id = nova_id
 
     @property
     def nome(self):
@@ -35,31 +35,3 @@ class Usuario(ABC):
     @data_nascimento.setter
     def data_nascimento(self, nova_data_nascimento):
         if isinstance(nova_data_nascimento, str): self.__data_nascimento = nova_data_nascimento
-
-
-
-    @abstractmethod
-    def realizar_audiencia(self, audiencia):
-        pass
-
-    #@abstractmethod
-    #def registrar_movimentacao(self, processo, movimentacao):
-        #pass
-
-    @abstractmethod
-    def apresentar_defesa(self, defesa):
-        pass
-
-    @abstractmethod
-    def emitir_acusacao(self, acusacao):
-        pass
-
-    @abstractmethod
-    def emitir_sentenca(self, processo):
-        pass
-
-
-
-    @abstractmethod
-    def emitir_arquivamento(self, arquivamento):
-        pass

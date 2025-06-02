@@ -1,35 +1,37 @@
-from src.module.usuario.abstractUsuario import Usuario
-from src.module.usuario.juiz import Juiz
-from src.module.usuario.advogado import Advogado
-from src.view.telaProcessos import TelaProcessos
-from src.module.processo import Processo
-from src.module.documento.acusacao import Acusacao
-from src.module.documento.defesa import Defesa
-from src.module.documento.audiencia import Audiencia
-from src.module.documento.sentenca import Sentenca
-from src.module.arquivamento import Arquivamento
-from src.module.tribunal import Tribunal
+from module.usuario.abstractUsuario import Usuario
+from module.usuario.juiz import Juiz
+from module.usuario.advogado import Advogado
+from view.telaProcessos import TelaProcessos
+from module.processo import Processo
+from module.documento.acusacao import Acusacao
+from module.documento.defesa import Defesa
+from module.documento.audiencia import Audiencia
+from module.documento.sentenca import Sentenca
+from module.documento.arquivamento import Arquivamento
+from module.tribunal import Tribunal
 from datetime import date
 
 class ControladorProcessos:
-    def __init__(self):
+    def __init__(self, controlador_usuarios):
+        self.__controlador_usuarios = controlador_usuarios
         self.__processos = []
         self.__tribunais = self.__carregar_tribunais()
         self.__tela = TelaProcessos()
         self.__usuario_logado = None
+
 
     def set_usuario_logado(self, usuario: Usuario):
         self.__usuario_logado = usuario
 
     def __carregar_tribunais(self):
         return [
-            Tribunal(1, "TJSC", "Santa Catarina", "Tribunal de Justiça de SC"),
-            Tribunal(2, "TRF4", "Região Sul", "Tribunal Regional Federal da 4ª Região")
+            Tribunal(1, "TJSC", "Santa Catarina", "Tribunal de Justiça de SC", "1ª Instância"),
+            Tribunal(2, "TRF4", "Região Sul", "Tribunal Regional Federal da 4ª Região", "2ª Instância")
         ]
 
     def abrir_tela(self):
         while True:
-            opcao = self.__tela.mostrar_menu()
+            opcao = self.__tela.mostrar_menu(self.__usuario_logado)
             if opcao == 1:
                 self.criar_processo()
             elif opcao == 2:
@@ -40,38 +42,96 @@ class ControladorProcessos:
                 self.encerrar_processo()
             elif opcao == 5:
                 self.gerar_relatorio()
+            elif opcao == 6:
+                self.editar_processo()
+            elif opcao == 7:
+                self.exibir_detalhes_processo()
             elif opcao == 0:
                 break
             else:
                 self.__tela.mostrar_mensagem("Opção inválida.")
 
     def criar_processo(self):
-        dados = self.__tela.ler_dados_processo()
+        tipo = self.__usuario_logado.__class__.__name__.lower()
+        if tipo not in ["juiz", "advogado", "promotor"]:
+            self.__tela.mostrar_mensagem("Você não tem permissão para criar processos.")
+            return
+
+        numero = self.__tela.solicitar_numero_processo()
+        data_abertura = self.__tela.solicitar_data_processo()
+        juiz = self.__tela.solicitar_juiz(self.__controlador_usuarios.get_usuarios())
+        if not juiz:
+            self.__tela.mostrar_mensagem("Juiz não encontrado.")
+            return
+
         tribunal = self.__tela.selecionar_tribunal(self.__tribunais)
         if not tribunal:
             self.__tela.mostrar_mensagem("Tribunal não encontrado.")
             return
 
+        advogados = [u for u in self.__controlador_usuarios.get_usuarios() if u.__class__.__name__.lower() == "advogado"]
+        if not advogados:
+            self.__tela.mostrar_mensagem(">>> Nenhum advogado cadastrado.")
+            if self.__tela.confirmar("Deseja cadastrar um advogado agora? (s/n): "):
+                self.__controlador_usuarios.incluir_usuario()
+                advogados = [u for u in self.__controlador_usuarios.get_usuarios() if u.__class__.__name__.lower() == "advogado"]
+            else:
+                self.__tela.mostrar_mensagem("Operação cancelada.")
+                return
+
+        selecionados = self.__tela.selecionar_usuarios_por_id(advogados, "advogado")
+        if not selecionados:
+            self.__tela.mostrar_mensagem("Nenhum advogado selecionado.")
+            return
+
+        partes = [u for u in self.__controlador_usuarios.get_usuarios() if u.__class__.__name__.lower() in ["reu", "vitima"]]
+        if not partes:
+            self.__tela.mostrar_mensagem(">>> Nenhuma parte cadastrada.")
+            if self.__tela.confirmar("Deseja cadastrar uma parte agora? (s/n): "):
+                self.__controlador_usuarios.incluir_usuario()
+                partes = [u for u in self.__controlador_usuarios.get_usuarios() if u.__class__.__name__.lower() in ["reu", "vitima"]]
+            else:
+                self.__tela.mostrar_mensagem("Operação cancelada.")
+                return
+
+        partes_selecionadas = self.__tela.selecionar_usuarios_por_id(partes, "parte")
+        if not partes_selecionadas:
+            self.__tela.mostrar_mensagem("Nenhuma parte selecionada.")
+            return
+
         processo = Processo(
-            numero=dados["numero"],
-            data_abertura=dados["data_abertura"],
+            numero=numero,
+            data_abertura=data_abertura,
             status="Ativo",
-            juiz_responsavel=dados["juiz"],
-            advogados=dados["advogados"],
-            partes=dados["partes"],
+            juiz_responsavel=juiz,
+            advogados=selecionados,
+            partes=partes_selecionadas,
             tribunal=tribunal
         )
         self.__processos.append(processo)
-        self.__tela.mostrar_mensagem("Processo criado com sucesso.")
+        self.__tela.mostrar_mensagem(">>> Processo criado com sucesso.")
 
     def listar_processos(self):
-        lista_str = [f"{p.numero()} - Status: {p.status()} - Tribunal: {p.tribunal().nome()}" for p in self.__processos]
+        processos_usuario = []
+
+        for p in self.__processos:
+            if p.juiz_responsavel == self.__usuario_logado or \
+            self.__usuario_logado in p.advogados or \
+            self.__usuario_logado in p.partes:
+                processos_usuario.append(p)
+
+        if not processos_usuario:
+            self.__tela.mostrar_mensagem("Nenhum processo relacionado ao usuário atual.")
+            return
+
+        lista_str = [f"{p.numero} - Status: {p.status} - Tribunal: {p.tribunal.nome}" for p in processos_usuario]
         self.__tela.exibir_lista_processos(lista_str)
+
 
     def selecionar_processo(self):
         numero = self.__tela.selecionar_numero_processo()
         for processo in self.__processos:
-            if processo.numero() == numero:
+            if processo.numero == numero:
                 return processo
         self.__tela.mostrar_mensagem("Processo não encontrado.")
         return None
@@ -81,8 +141,22 @@ class ControladorProcessos:
         if not processo:
             return
 
-        if processo.status().lower() != "ativo":
+        if isinstance(self.__usuario_logado, Juiz):
+            if self.__usuario_logado != processo.juiz_responsavel:
+                self.__tela.mostrar_mensagem("Você não é o juiz responsável por este processo.")
+                return
+
+        elif isinstance(self.__usuario_logado, Advogado):
+            if self.__usuario_logado not in processo.advogados:
+                self.__tela.mostrar_mensagem("Você não é advogado deste processo.")
+                return
+
+        if processo.status.lower() != "ativo":
             self.__tela.mostrar_mensagem("Não é possível adicionar documentos a um processo encerrado.")
+            return
+
+        if any(isinstance(d, Sentenca) for d in processo.documentos):
+            self.__tela.mostrar_mensagem("Este processo já possui sentença. Não é possível adicionar novos documentos.")
             return
 
         tipo, dados_doc = self.__tela.ler_dados_documento()
@@ -95,32 +169,193 @@ class ControladorProcessos:
                 return
             doc = Sentenca(**dados_doc)
 
-        else:
-            doc_class = {
-                "acusacao": Acusacao,
-                "defesa": Defesa,
-                "audiencia": Audiencia,
-                "arquivamento": Arquivamento
-            }.get(tipo)
-            if doc_class:
-                doc = doc_class(**dados_doc)
-            else:
-                self.__tela.mostrar_mensagem("Tipo de documento inválido.")
+        elif tipo == "acusacao":
+            if not isinstance(self.__usuario_logado, Advogado):
+                self.__tela.mostrar_mensagem("Apenas advogados podem emitir acusações.")
                 return
+            doc = Acusacao(**dados_doc)
+
+        elif tipo == "defesa":
+            if not isinstance(self.__usuario_logado, Advogado):
+                self.__tela.mostrar_mensagem("Apenas advogados podem apresentar defesa.")
+                return
+            doc = Defesa(**dados_doc)
+
+        elif tipo == "audiencia":
+            if not isinstance(self.__usuario_logado, Juiz):
+                self.__tela.mostrar_mensagem("Apenas juízes podem marcar audiências.")
+                return
+            dados_doc["data"] = self.__tela.solicitar_data("Data da audiência (AAAA-MM-DD): ")
+            dados_doc["juiz_responsavel"] = self.__usuario_logado
+
+            advogados = [u for u in self.__controlador_usuarios.get_usuarios() if u.__class__.__name__.lower() == "advogado"]
+            if not advogados:
+                self.__tela.mostrar_mensagem("Não há advogados disponíveis.")
+                return
+            dados_doc["advogado_responsavel"] = self.__tela.selecionar_usuarios_por_id(advogados, "advogado")[0]
+
+            doc = Audiencia(**dados_doc)
+
+        elif tipo == "arquivamento":
+            self.__tela.mostrar_mensagem("Arquivamentos são gerados automaticamente ao encerrar o processo.")
+            return
+
+        else:
+            self.__tela.mostrar_mensagem("Tipo de documento inválido.")
+            return
 
         processo.adicionar_documento(doc)
         self.__tela.mostrar_mensagem(f"{tipo.capitalize()} adicionada ao processo.")
+    def editar_processo(self):
+        processo = self.selecionar_processo()
+        if not processo:
+            return
+
+        while True:
+            opcao = self.__tela.mostrar_menu_edicao()
+            
+            if opcao == 1:  # Adicionar advogado
+                advogados = [u for u in self.__controlador_usuarios.get_usuarios() if u.__class__.__name__.lower() == "advogado"]
+                if not advogados:
+                    self.__tela.mostrar_mensagem("Nenhum advogado cadastrado.")
+                    continue
+                novos = self.__tela.selecionar_usuarios_por_id(advogados, "advogado")
+                for a in novos:
+                    if a not in processo.advogados:
+                        processo.adicionar_advogado(a)
+                self.__tela.mostrar_mensagem("Advogado(s) adicionados com sucesso.")
+
+            elif opcao == 2:  # Adicionar parte
+                partes = [u for u in self.__controlador_usuarios.get_usuarios() if u.__class__.__name__.lower() in ["reu", "vitima"]]
+                if not partes:
+                    self.__tela.mostrar_mensagem("Nenhuma parte cadastrada.")
+                    continue
+                novos = self.__tela.selecionar_usuarios_por_id(partes, "parte")
+                for p in novos:
+                    if p not in processo.partes:
+                        processo.adicionar_parte(p)
+                self.__tela.mostrar_mensagem("Parte(s) adicionadas com sucesso.")
+
+            elif opcao == 3:  # Remover advogado
+                if not processo.advogados:
+                    self.__tela.mostrar_mensagem("Nenhum advogado para remover.")
+                    continue
+                remover = self.__tela.selecionar_usuarios_por_id(processo.advogados, "advogado")
+                for a in remover:
+                    processo.remover_advogado(a)
+                self.__tela.mostrar_mensagem("Advogado(s) removidos com sucesso.")
+
+            elif opcao == 4:  # Remover parte
+                if not processo.partes:
+                    self.__tela.mostrar_mensagem("Nenhuma parte para remover.")
+                    continue
+                remover = self.__tela.selecionar_usuarios_por_id(processo.partes, "parte")
+                for p in remover:
+                    processo.remover_parte(p)
+                self.__tela.mostrar_mensagem("Parte(s) removidas com sucesso.")
+
+            elif opcao == 0:
+                break
+            else:
+                self.__tela.mostrar_mensagem("Opção inválida.")
+    def exibir_detalhes_processo(self):
+        processo = self.selecionar_processo()
+        if not processo:
+            self.__tela.mostrar_mensagem("Processo não encontrado.")
+            return
+
+        print(f"Número: {processo.numero}")
+        print(f"Data de Abertura: {processo.data_abertura}")
+        print(f"Status: {processo.status}")
+        print(f"Tribunal: {processo.tribunal.nome} ({processo.tribunal.localidade})")
+        print(f"Juiz Responsável: {processo.juiz_responsavel.nome} (ID {processo.juiz_responsavel.id})")
+        print("\nAdvogados:")
+        for adv in processo.advogados:
+            print(f"- {adv.nome} (ID {adv.id})")
+
+        print("\nPartes:")
+        for parte in processo.partes:
+            print(f"- {parte.nome} ({parte.__class__.__name__}) (ID {parte.id})")
+
+        print("\nDocumentos:")
+        if not processo.documentos:
+            print("Nenhum documento anexado.")
+        else:
+            for doc in processo.documentos:
+                print(f"- {doc.__class__.__name__}: {doc.titulo} (ID {doc.id})")
 
     def encerrar_processo(self):
         processo = self.selecionar_processo()
-        if processo:
-            processo.encerrar()
-            self.__tela.mostrar_mensagem("Processo encerrado com sucesso.")
+        if not processo:
+            return
+
+        if not any(isinstance(d, Audiencia) for d in processo.documentos):
+            self.__tela.mostrar_mensagem("Não é possível encerrar o processo sem uma audiência.")
+            return
+
+        if not any(isinstance(d, Sentenca) for d in processo.documentos):
+            self.__tela.mostrar_mensagem("Não é possível encerrar o processo sem uma sentença.")
+            return
+
+        processo.encerrar()
+        self.__tela.mostrar_mensagem("Processo encerrado com sucesso.")
 
     def gerar_relatorio(self):
-        relatorio = []
+        while True:
+            opcao = self.__tela.mostrar_menu_relatorio()
+            if opcao == 1:
+                self._relatorio_por_status()
+            elif opcao == 2:
+                self._relatorio_por_juiz()
+            elif opcao == 3:
+                self._relatorio_sem_audiencia()
+            elif opcao == 4:
+                self._relatorio_com_sentenca()
+            elif opcao == 0:
+                break
+            else:
+                self.__tela.mostrar_mensagem("Opção inválida.")
+
+    def _relatorio_por_status(self):
+        status = self.__tela.solicitar_status()
+        lista = [p for p in self.__processos if p.status.lower() == status.lower()]
+        self.__tela.exibir_relatorio([f"{p.numero} - {p.status}" for p in lista])
+
+    def _relatorio_por_juiz(self):
+        try:
+            id_juiz = self.__tela.solicitar_id()
+        except ValueError:
+            self.__tela.mostrar_mensagem("ID inválido.")
+            return
+
+        lista = [p for p in self.__processos if p.juiz_responsavel.id == id_juiz]
+        
+        if not lista:
+            self.__tela.mostrar_mensagem("Nenhum processo encontrado para o juiz informado.")
+            return
+
+        linhas = [f"{p.numero} - Status: {p.status} - Tribunal: {p.tribunal.nome}" for p in lista]
+        self.__tela.exibir_relatorio(linhas)
+
+    def _relatorio_sem_audiencia(self):
+        lista = []
         for p in self.__processos:
-            relatorio.append(
-                f"Processo {p.numero()} - Status: {p.status()} - Juiz: {p.juiz_responsavel().nome()} - Tribunal: {p.tribunal().nome()}"
-            )
-        self.__tela.exibir_relatorio(relatorio)
+            if not any(isinstance(d, Audiencia) for d in p.documentos):
+                lista.append(p)
+        self.__tela.exibir_relatorio([f"{p.numero} - Sem audiência" for p in lista])
+
+    def _relatorio_com_sentenca(self):
+        lista = []
+        for p in self.__processos:
+            if any(isinstance(d, Sentenca) for d in p.documentos):
+                lista.append(p)
+        self.__tela.exibir_relatorio([f"{p.numero} - Contém sentença" for p in lista])
+
+    def _possui_audiencia_realizada(self, processo):
+        for doc in processo.documentos:
+            if isinstance(doc, Audiencia) and doc.data <= date.today().isoformat():
+                return True
+        return False
+    
+    def get_tribunais(self):
+        return self.__tribunais
