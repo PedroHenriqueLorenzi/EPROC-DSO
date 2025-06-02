@@ -1,6 +1,21 @@
 from datetime import date
 from module.documento.arquivamento import Arquivamento
 
+from src.module.usuario.juiz import Juiz
+from src.module.usuario.advogado import Advogado
+from src.module.usuario.promotor import Promotor
+from src.module.usuario.reu import Reu
+from src.module.usuario.vitima import Vitima
+from src.module.tribunal import Tribunal
+
+from src.module.documento.acusacao import Acusacao
+from src.module.documento.defesa import Defesa
+from src.module.documento.audiencia import Audiencia
+from src.module.documento.sentenca import Sentenca
+
+from src.module.arquivamento import Arquivamento
+
+
 class Processo:
     def __init__(self, numero: int, data_abertura: str, status: str, juiz_responsavel, advogados, partes, tribunal):
         self.__numero = numero
@@ -58,9 +73,9 @@ class Processo:
     def data_abertura(self):
         return self.__data_abertura
 
-
     def adicionar_documento(self, doc):
         self.__documentos.append(doc)
+
 
     def adicionar_parte(self, parte):
         self.__partes.append(parte)
@@ -71,7 +86,8 @@ class Processo:
     def remover_advogado(self, advogado):
         if advogado in self.__advogados:
             self.__advogados.remove(advogado)
-
+            
     def remover_parte(self, parte):
         if parte in self.__partes:
             self.__partes.remove(parte)
+
