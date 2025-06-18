@@ -12,9 +12,10 @@ from module.tribunal import Tribunal
 from datetime import date
 
 class ControladorProcessos:
-    def __init__(self, controlador_usuarios):
+    def __init__(self, controlador_usuarios, controlador_documentos):
         self.__controlador_usuarios = controlador_usuarios
         self.__processos = []
+        self.__controlador_documentos = controlador_documentos
         self.__tribunais = self.__carregar_tribunais()
         self.__tela = TelaProcessos()
         self.__usuario_logado = None
@@ -145,7 +146,6 @@ class ControladorProcessos:
             if self.__usuario_logado != processo.juiz_responsavel:
                 self.__tela.mostrar_mensagem("Você não é o juiz responsável por este processo.")
                 return
-
         elif isinstance(self.__usuario_logado, Advogado):
             if self.__usuario_logado not in processo.advogados:
                 self.__tela.mostrar_mensagem("Você não é advogado deste processo.")
@@ -159,53 +159,8 @@ class ControladorProcessos:
             self.__tela.mostrar_mensagem("Este processo já possui sentença. Não é possível adicionar novos documentos.")
             return
 
-        tipo, dados_doc = self.__tela.ler_dados_documento()
-        dados_doc["autor"] = self.__usuario_logado 
-        doc = None
+        self.__controlador_documentos.abrir_tela_documento(self.__usuario_logado, processo, self.__controlador_usuarios.get_usuarios())
 
-        if tipo == "sentenca":
-            if not isinstance(self.__usuario_logado, Juiz):
-                self.__tela.mostrar_mensagem("Apenas juízes podem emitir sentenças.")
-                return
-            doc = Sentenca(**dados_doc)
-
-        elif tipo == "acusacao":
-            if not isinstance(self.__usuario_logado, Advogado):
-                self.__tela.mostrar_mensagem("Apenas advogados podem emitir acusações.")
-                return
-            doc = Acusacao(**dados_doc)
-
-        elif tipo == "defesa":
-            if not isinstance(self.__usuario_logado, Advogado):
-                self.__tela.mostrar_mensagem("Apenas advogados podem apresentar defesa.")
-                return
-            doc = Defesa(**dados_doc)
-
-        elif tipo == "audiencia":
-            if not isinstance(self.__usuario_logado, Juiz):
-                self.__tela.mostrar_mensagem("Apenas juízes podem marcar audiências.")
-                return
-            dados_doc["data"] = self.__tela.solicitar_data("Data da audiência (AAAA-MM-DD): ")
-            dados_doc["juiz_responsavel"] = self.__usuario_logado
-
-            advogados = [u for u in self.__controlador_usuarios.get_usuarios() if u.__class__.__name__.lower() == "advogado"]
-            if not advogados:
-                self.__tela.mostrar_mensagem("Não há advogados disponíveis.")
-                return
-            dados_doc["advogado_responsavel"] = self.__tela.selecionar_usuarios_por_id(advogados, "advogado")[0]
-
-            doc = Audiencia(**dados_doc)
-
-        elif tipo == "arquivamento":
-            self.__tela.mostrar_mensagem("Arquivamentos são gerados automaticamente ao encerrar o processo.")
-            return
-
-        else:
-            self.__tela.mostrar_mensagem("Tipo de documento inválido.")
-            return
-
-        processo.adicionar_documento(doc)
-        self.__tela.mostrar_mensagem(f"{tipo.capitalize()} adicionada ao processo.")
     def editar_processo(self):
         processo = self.selecionar_processo()
         if not processo:
@@ -258,6 +213,7 @@ class ControladorProcessos:
                 break
             else:
                 self.__tela.mostrar_mensagem("Opção inválida.")
+
     def exibir_detalhes_processo(self):
         processo = self.selecionar_processo()
         if not processo:
@@ -359,3 +315,14 @@ class ControladorProcessos:
     
     def get_tribunais(self):
         return self.__tribunais
+
+    def encerrar_processo(self):
+        processo = self.selecionar_processo()
+        if not processo:
+            return
+
+        try:
+            processo.encerrar()
+            self.__tela.mostrar_mensagem("Processo encerrado com sucesso e arquivamento gerado.")
+        except ValueError as e:
+            self.__tela.mostrar_mensagem(str(e))

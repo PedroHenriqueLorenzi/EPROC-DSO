@@ -1,19 +1,18 @@
 from datetime import date
 from module.documento.arquivamento import Arquivamento
 
-from src.module.usuario.juiz import Juiz
-from src.module.usuario.advogado import Advogado
-from src.module.usuario.promotor import Promotor
-from src.module.usuario.reu import Reu
-from src.module.usuario.vitima import Vitima
-from src.module.tribunal import Tribunal
+from module.usuario.juiz import Juiz
+from module.usuario.advogado import Advogado
+from module.usuario.reu import Reu
+from module.usuario.vitima import Vitima
+from module.tribunal import Tribunal
 
-from src.module.documento.acusacao import Acusacao
-from src.module.documento.defesa import Defesa
-from src.module.documento.audiencia import Audiencia
-from src.module.documento.sentenca import Sentenca
+from module.documento.acusacao import Acusacao
+from module.documento.defesa import Defesa
+from module.documento.audiencia import Audiencia
+from module.documento.sentenca import Sentenca
 
-from src.module.arquivamento import Arquivamento
+from module.documento.arquivamento import Arquivamento
 
 
 class Processo:
@@ -91,3 +90,21 @@ class Processo:
         if parte in self.__partes:
             self.__partes.remove(parte)
 
+    def encerrar(self):
+        if not any(isinstance(d, Audiencia) for d in self.documentos):
+            raise ValueError("Não é possível encerrar o processo sem uma audiência.")
+
+        if not any(isinstance(d, Sentenca) for d in self.documentos):
+            raise ValueError("Não é possível encerrar o processo sem uma sentença.")
+
+        arquivamento = Arquivamento(
+            id=len(self.documentos) + 1,
+            titulo=f"Arquivamento do processo {self.numero}",
+            descricao="Processo encerrado oficialmente com sentença e audiência.",
+            data_envio=date.today().isoformat(),
+            autor=self.juiz_responsavel,
+            motivo="Processo finalizado conforme regras judiciais."
+        )
+
+        self.documentos.append(arquivamento)
+        self.status = "Encerrado"

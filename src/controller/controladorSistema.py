@@ -1,12 +1,14 @@
 from view.telaSistema import TelaSistema
 from controller.controladorUsuarios import ControladorUsuarios
 from controller.controladorProcessos import ControladorProcessos
+from controller.controladorDocumentos import ControladorDocumentos
 
 class ControladorSistema:
     def __init__(self):
         self.__tela = TelaSistema()
+        self.__controlador_documentos = ControladorDocumentos()
         self.__controlador_usuarios = ControladorUsuarios(self.get_tribunais())
-        self.__controlador_processos = ControladorProcessos(self.__controlador_usuarios)
+        self.__controlador_processos = ControladorProcessos(self.__controlador_usuarios, self.__controlador_documentos)
 
     def get_tribunais(self):
         from module.tribunal import Tribunal
@@ -14,6 +16,7 @@ class ControladorSistema:
             Tribunal(1, "TJSC", "Santa Catarina", "Tribunal de Justiça de SC", "1ª Instância"),
             Tribunal(2, "TRF4", "Região Sul", "Tribunal Regional Federal da 4ª Região", "2ª Instância")
         ]
+
     def inicializar(self):
         while True:
             opcao = self.__tela.mostrar_menu()
