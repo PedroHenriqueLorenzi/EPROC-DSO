@@ -172,3 +172,6 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+# Ignorar arquivos dentro de database, mas manter a pasta
+/src/database/*
+!/src/database/.gitkeep
