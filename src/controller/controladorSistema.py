@@ -1,11 +1,11 @@
-from view.telaSistema import TelaSistema
+from GUI.interface_principal import InterfacePrincipalGUI
 from controller.controladorUsuarios import ControladorUsuarios
 from controller.controladorProcessos import ControladorProcessos
 from controller.controladorDocumentos import ControladorDocumentos
 
 class ControladorSistema:
     def __init__(self):
-        self.__tela = TelaSistema()
+        self.__tela = InterfacePrincipalGUI(self)
         self.__controlador_documentos = ControladorDocumentos()
         self.__controlador_usuarios = ControladorUsuarios(self.get_tribunais())
         self.__controlador_processos = ControladorProcessos(self.__controlador_usuarios, self.__controlador_documentos)
@@ -18,28 +18,11 @@ class ControladorSistema:
         ]
 
     def inicializar(self):
-        while True:
-            opcao = self.__tela.mostrar_menu()
-            if opcao == 1:
-                self.__controlador_usuarios.abrir_tela()
+        self.__tela.abre_tela()
 
-            elif opcao == 2:
-                id_usuario = self.__tela.solicitar_id_usuario()
-                usuario_logado = self.__controlador_usuarios.buscar_usuario_por_id(id_usuario)
+    def abrir_usuarios(self):
+        self.__controlador_usuarios.abrir_tela()
 
-                if usuario_logado:
-                    tipo = usuario_logado.__class__.__name__.lower()
-                    if tipo in ["juiz", "advogado", "promotor"]:
-                        self.__controlador_processos.set_usuario_logado(usuario_logado)
-                        self.__controlador_processos.abrir_tela()
-                    else:
-                        self.__tela.mostrar_mensagem(f"Usuário do tipo '{tipo}' não tem permissão para acessar processos.")
-                else:
-                    self.__tela.mostrar_mensagem("Usuário não encontrado.")
-
-            elif opcao == 0:
-                self.__tela.mostrar_mensagem("Saindo do sistema...")
-                break
-
-            else:
-                self.__tela.mostrar_mensagem("Opção inválida.")
+    def abrir_processos_com_usuario(self, usuario):
+        self.__controlador_processos.set_usuario_logado(usuario)
+        self.__controlador_processos.abrir_tela()
