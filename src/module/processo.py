@@ -1,18 +1,18 @@
 from datetime import date
-from module.documento.arquivamento import Arquivamento
+from src.module.documento.arquivamento import Arquivamento
 
-from module.usuario.juiz import Juiz
-from module.usuario.advogado import Advogado
-from module.usuario.reu import Reu
-from module.usuario.vitima import Vitima
-from module.tribunal import Tribunal
+from src.module.usuario.juiz import Juiz
+from src.module.usuario.advogado import Advogado
+from src.module.usuario.reu import Reu
+from src.module.usuario.vitima import Vitima
+from src.module.tribunal import Tribunal
 
-from module.documento.acusacao import Acusacao
-from module.documento.defesa import Defesa
-from module.documento.audiencia import Audiencia
-from module.documento.sentenca import Sentenca
+from src.module.documento.acusacao import Acusacao
+from src.module.documento.defesa import Defesa
+from src.module.documento.audiencia import Audiencia
+from src.module.documento.sentenca import Sentenca
 
-from module.documento.arquivamento import Arquivamento
+from src.module.documento.arquivamento import Arquivamento
 
 
 class Processo:

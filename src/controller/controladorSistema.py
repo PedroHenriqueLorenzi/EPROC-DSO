@@ -1,7 +1,7 @@
-from view.telaSistema import TelaSistema
-from controller.controladorUsuarios import ControladorUsuarios
-from controller.controladorProcessos import ControladorProcessos
-from controller.controladorDocumentos import ControladorDocumentos
+from src.view.telaSistema import TelaSistema
+from src.controller.controladorUsuarios import ControladorUsuarios
+from src.controller.controladorProcessos import ControladorProcessos
+from src.controller.controladorDocumentos import ControladorDocumentos
 
 class ControladorSistema:
     def __init__(self):
@@ -11,7 +11,7 @@ class ControladorSistema:
         self.__controlador_processos = ControladorProcessos(self.__controlador_usuarios, self.__controlador_documentos)
 
     def get_tribunais(self):
-        from module.tribunal import Tribunal
+        from src.module.tribunal import Tribunal
         return [
             Tribunal(1, "TJSC", "Santa Catarina", "Tribunal de Justiça de SC", "1ª Instância"),
             Tribunal(2, "TRF4", "Região Sul", "Tribunal Regional Federal da 4ª Região", "2ª Instância")

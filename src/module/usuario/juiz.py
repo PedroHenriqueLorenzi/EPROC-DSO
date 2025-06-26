@@ -1,4 +1,4 @@
-from module.usuario.abstractUsuario import Usuario
+from src.module.usuario.abstractUsuario import Usuario
 
 class Juiz(Usuario):
     def __init__(self, id: int, nome: str, cpf: int, data_nascimento: str, tribunal_atribuido: str):

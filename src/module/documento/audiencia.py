@@ -1,6 +1,6 @@
-from module.documento.abstractDocumento import Documento
-from module.usuario.abstractUsuario import Usuario
-from module.usuario.juiz import Juiz
+from src.module.documento.abstractDocumento import Documento
+from src.module.usuario.abstractUsuario import Usuario
+from src.module.usuario.juiz import Juiz
 
 class Audiencia(Documento):
     def __init__(self, id, titulo, descricao, data_envio, autor: Usuario, juiz_responsavel: Juiz, data):

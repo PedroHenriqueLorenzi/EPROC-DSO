@@ -1,9 +1,9 @@
-from view.telaUsuario import TelaUsuarios
-from module.usuario.advogado import Advogado
-from module.usuario.juiz import Juiz
-from module.usuario.reu import Reu
-from module.usuario.vitima import Vitima
-from DAOs.usuarioDAO import UsuarioDAO
+from src.view.telaUsuario import TelaUsuarios
+from src.module.usuario.advogado import Advogado
+from src.module.usuario.juiz import Juiz
+from src.module.usuario.reu import Reu
+from src.module.usuario.vitima import Vitima
+from src.DAOs.usuarioDAO import UsuarioDAO
 
 class ControladorUsuarios:
     def __init__(self, tribunais: list):

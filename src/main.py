@@ -1,4 +1,4 @@
-from controller.controladorSistema import ControladorSistema
+from src.controller.controladorSistema import ControladorSistema
 
 if __name__ == "__main__":
     sistema = ControladorSistema()

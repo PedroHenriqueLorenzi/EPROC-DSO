@@ -1,6 +1,6 @@
 from datetime import datetime
-from module.usuario.advogado import Advogado
-from module.usuario.juiz import Juiz
+from src.module.usuario.advogado import Advogado
+from src.module.usuario.juiz import Juiz
 
 class TelaDocumentos:
     def mostrar_menu_documentos(self):

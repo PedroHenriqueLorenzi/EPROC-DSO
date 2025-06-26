@@ -1,4 +1,4 @@
-from DAOs.abstractDAO import AbstractDAO
+from src.DAOs.abstractDAO import AbstractDAO
 
 class UsuarioDAO(AbstractDAO):
     def __init__(self):

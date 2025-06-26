@@ -1,10 +1,10 @@
-from module.documento.acusacao import Acusacao
-from module.documento.defesa import Defesa
-from module.documento.audiencia import Audiencia
-from module.documento.sentenca import Sentenca
-from module.usuario.juiz import Juiz
-from module.usuario.advogado import Advogado
-from view.telaDocumentos import TelaDocumentos
+from src.module.documento.acusacao import Acusacao
+from src.module.documento.defesa import Defesa
+from src.module.documento.audiencia import Audiencia
+from src.module.documento.sentenca import Sentenca
+from src.module.usuario.juiz import Juiz
+from src.module.usuario.advogado import Advogado
+from src.view.telaDocumentos import TelaDocumentos
 
 class ControladorDocumentos:
     def __init__(self):

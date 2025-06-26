@@ -1,4 +1,4 @@
-from module.usuario.abstractParte import Parte
+from src.module.usuario.abstractParte import Parte
 
 class Reu(Parte):
     def __init__(self, id: int, nome: str, cpf: int, data_nascimento: str):

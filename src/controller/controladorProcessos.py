@@ -1,14 +1,14 @@
-from module.usuario.abstractUsuario import Usuario
-from module.usuario.juiz import Juiz
-from module.usuario.advogado import Advogado
-from view.telaProcessos import TelaProcessos
-from module.processo import Processo
-from module.documento.acusacao import Acusacao
-from module.documento.defesa import Defesa
-from module.documento.audiencia import Audiencia
-from module.documento.sentenca import Sentenca
-from module.documento.arquivamento import Arquivamento
-from module.tribunal import Tribunal
+from src.module.usuario.abstractUsuario import Usuario
+from src.module.usuario.juiz import Juiz
+from src.module.usuario.advogado import Advogado
+from src.view.telaProcessos import TelaProcessos
+from src.module.processo import Processo
+from src.module.documento.acusacao import Acusacao
+from src.module.documento.defesa import Defesa
+from src.module.documento.audiencia import Audiencia
+from src.module.documento.sentenca import Sentenca
+from src.module.documento.arquivamento import Arquivamento
+from src.module.tribunal import Tribunal
 from datetime import date
 
 class ControladorProcessos:
