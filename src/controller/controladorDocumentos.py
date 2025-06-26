@@ -83,17 +83,17 @@ class ControladorDocumentos:
 
         elif tipo == "audiencia":
             if not isinstance(usuario_logado, Juiz):
-                raise PermissionError("Apenas juízes podem marcar audiências.")
-            if "data" not in dados_doc or "juiz_responsavel" not in dados_doc or "advogado_responsavel" not in dados_doc:
-                raise ValueError("Audiências exigem data, juiz e advogado responsável.")
+                raise PermissionError("Apenas juízes podem agendar audiências.")
+            if "data_audiencia" not in dados_doc or "advogado" not in dados_doc:
+                raise ValueError("Audiências exigem data e advogado responsável.")
             doc = Audiencia(
                 id=dados_doc["id"],
                 titulo=dados_doc["titulo"],
                 descricao=dados_doc["descricao"],
                 data_envio=dados_doc["data_envio"],
-                autor=usuario_logado,
-                juiz_responsavel=dados_doc["juiz_responsavel"],
-                data=dados_doc["data"]
+                autor=dados_doc["advogado"],
+                juiz_responsavel=usuario_logado,
+                data=dados_doc["data_audiencia"]
             )
 
         elif tipo == "arquivamento":
