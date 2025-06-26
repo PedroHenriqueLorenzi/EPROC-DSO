@@ -35,23 +35,21 @@ class InterfacePrincipalGUI:
                 id_str = sg.popup_get_text("Digite o ID do usuário:", title="Acesso aos Processos")
                 if id_str and id_str.isdigit():
                     id_usuario = int(id_str)
-                    usuario = self.__controlador.controlador_usuarios.buscar_usuario_por_id(id_usuario)
+                    usuario = self.__controlador._ControladorSistema__controlador_usuarios.buscar_usuario_por_id(id_usuario)
 
                     if usuario:
                         tipo = usuario.__class__.__name__.lower()
                         if tipo in ["juiz", "advogado", "promotor"]:
-                            self.__controlador.controlador_processos.set_usuario_logado(usuario)
                             sg.popup_ok("Redirecionando para terminal...", title="Modo Texto")
                             janela.close()
                             self.__controlador.abrir_processos_com_usuario(usuario)
                             break
-                            # self.__controlador.controlador_processos.set_usuario_logado(usuario)
-                            # self.__controlador.controlador_processos.abrir_tela()
                         else:
                             sg.popup_error(f"Usuário do tipo '{tipo}' não tem permissão para acessar processos.")
                     else:
                         sg.popup_error("Usuário não encontrado.")
                 else:
                     sg.popup_error("ID inválido.")
+
 
         janela.close()
