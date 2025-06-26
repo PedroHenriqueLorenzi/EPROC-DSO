@@ -97,7 +97,7 @@ class TelaDocumentos:
 
         elif tipo == "audiencia":
             data_audiencia = input("Data da audiência (AAAA-MM-DD): ")
-            dados_extra["data"] = data_audiencia
+            dados_extra["data_audiencia"] = data_audiencia
 
             juizes = [u for u in usuarios_disponiveis if isinstance(u, Juiz)]
             advogados = [u for u in usuarios_disponiveis if isinstance(u, Advogado)]
@@ -115,9 +115,10 @@ class TelaDocumentos:
                 if not selecionado:
                     print("Advogado não encontrado.")
                     return None
-                dados_extra["advogado_responsavel"] = selecionado
+                dados_extra["advogado"] = selecionado
             except ValueError:
                 print("ID inválido.")
                 return None
 
         return dados_extra
+

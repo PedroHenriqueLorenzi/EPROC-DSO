@@ -6,7 +6,7 @@ from module.processo import Processo
 from module.documento.audiencia import Audiencia
 from module.documento.sentenca import Sentenca
 from module.tribunal import Tribunal
-from datetime import date
+from datetime import datetime
 from DAOs.processoDAO import ProcessoDAO
 
 class ControladorProcessos:
@@ -136,7 +136,7 @@ class ControladorProcessos:
         if not processo:
             return
 
-        if isinstance(self.__usuario_logado, Juiz) and self.__usuario_logado != processo.juiz_responsavel:
+        if isinstance(self.__usuario_logado, Juiz) and self.__usuario_logado.id != processo.juiz_responsavel.id:
             self.__tela.mostrar_mensagem("Você não é o juiz responsável por este processo.")
             return
 
@@ -260,10 +260,15 @@ class ControladorProcessos:
                 self._relatorio_sem_audiencia()
             elif opcao == 4:
                 self._relatorio_com_sentenca()
+            elif opcao == 5:
+                self._relatorio_tempo_medio()
+            elif opcao == 6:
+                self._relatorio_documentos_por_processo()
             elif opcao == 0:
                 break
             else:
                 self.__tela.mostrar_mensagem("Opção inválida.")
+
 
     def _relatorio_por_status(self):
         status = self.__tela.solicitar_status()
@@ -312,3 +317,32 @@ class ControladorProcessos:
             self.__tela.mostrar_mensagem("Processo encerrado com sucesso e arquivamento gerado.")
         except ValueError as e:
             self.__tela.mostrar_mensagem(str(e))
+
+    def _relatorio_tempo_medio(self):
+        encerrados = [p for p in self.__processo_dao.get_all() if p.status.lower() == "encerrado"]
+        if not encerrados:
+            self.__tela.mostrar_mensagem("Nenhum processo encerrado encontrado.")
+            return
+
+        total_dias = 0
+        count = 0
+
+        for p in encerrados:
+            try:
+                data_inicio = datetime.strptime(p.data_abertura, "%Y-%m-%d")
+                data_fim = max(datetime.strptime(d.data_envio, "%Y-%m-%d") for d in p.documentos)
+                total_dias += (data_fim - data_inicio).days
+                count += 1
+            except:
+                continue
+
+        media = total_dias / count if count else 0
+        self.__tela.mostrar_mensagem(f"Tempo médio de tramitação: {media:.1f} dias")
+
+    def _relatorio_documentos_por_processo(self):
+        linhas = []
+        for p in self.__processo_dao.get_all():
+            linha = f"Processo {p.numero}: {len(p.documentos)} documento(s)"
+            linhas.append(linha)
+        self.__tela.exibir_relatorio(linhas)
+

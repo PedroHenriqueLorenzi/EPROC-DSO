@@ -140,6 +140,8 @@ class TelaProcessos:
         print("2 - Por juiz")
         print("3 - Sem audiência")
         print("4 - Com sentença")
+        print("5 - Tempo médio de tramitação")
+        print("6 - Quantidade de documentos por processo")
         print("0 - Voltar")
         try:
             return int(input("Escolha uma opção: "))

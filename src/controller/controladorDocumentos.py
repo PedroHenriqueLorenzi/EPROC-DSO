@@ -21,7 +21,8 @@ class ControladorDocumentos:
             print(">>> Falha ao obter dados básicos.")
             return
 
-        dados_extra = self.__tela_documentos.solicitar_dados_extra(tipo, processo, lista_usuarios)
+        dados_extra = self.__tela_documentos.solicitar_dados_extra(tipo, processo, processo.advogados)
+
         if dados_extra is None:
             print(">>> Falha ao obter dados específicos.")
             return

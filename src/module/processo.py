@@ -1,18 +1,8 @@
 from datetime import date
 from module.documento.arquivamento import Arquivamento
 
-from module.usuario.juiz import Juiz
-from module.usuario.advogado import Advogado
-from module.usuario.reu import Reu
-from module.usuario.vitima import Vitima
-from module.tribunal import Tribunal
-
-from module.documento.acusacao import Acusacao
-from module.documento.defesa import Defesa
 from module.documento.audiencia import Audiencia
 from module.documento.sentenca import Sentenca
-
-from module.documento.arquivamento import Arquivamento
 
 
 class Processo:
@@ -35,19 +25,6 @@ class Processo:
     def status(self):
         return self.__status
 
-    def encerrar(self, motivo="Encerramento do processo."):
-        self.__status = "Encerrado"
-        arquivamento = Arquivamento(
-            id=len(self.__documentos) + 1,
-            titulo="Arquivamento automático",
-            descricao=motivo,
-            data_envio=date.today().isoformat(),
-            autor=self.__juiz_responsavel,
-            motivo=motivo
-        )
-        self.adicionar_documento(arquivamento)
-        self.__arquivamento = arquivamento
-
     @property
     def juiz_responsavel(self):
         return self.__juiz_responsavel
@@ -67,6 +44,10 @@ class Processo:
     @property
     def advogados(self):
         return self.__advogados
+    
+    @status.setter
+    def status(self, novo_status):
+        self.__status = novo_status
 
     @property
     def data_abertura(self):
@@ -74,7 +55,6 @@ class Processo:
 
     def adicionar_documento(self, doc):
         self.__documentos.append(doc)
-
 
     def adicionar_parte(self, parte):
         self.__partes.append(parte)
@@ -108,3 +88,16 @@ class Processo:
 
         self.documentos.append(arquivamento)
         self.status = "Encerrado"
+    
+    def encerrar(self, motivo="Encerramento do processo."):
+        self.__status = "Encerrado"
+        arquivamento = Arquivamento(
+            id=len(self.__documentos) + 1,
+            titulo="Arquivamento automático",
+            descricao=motivo,
+            data_envio=date.today().isoformat(),
+            autor=self.__juiz_responsavel,
+            motivo=motivo
+        )
+        self.adicionar_documento(arquivamento)
+        self.__arquivamento = arquivamento
