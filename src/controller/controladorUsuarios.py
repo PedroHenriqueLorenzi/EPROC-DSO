@@ -89,3 +89,44 @@ class ControladorUsuarios:
 
     def get_usuarios(self):
         return list(self.__user_dao.get_all())
+
+
+    def criar_usuario(self, nome, cpf, nascimento, tipo, oab=None, tribunal_index=None, parte_tipo=None):
+        novo_id = max([u.id for u in self.__user_dao.get_all()] + [0]) + 1
+
+        if tipo.lower() == "juiz":
+            if tribunal_index is None or not (0 <= tribunal_index < len(self.__tribunais)):
+                raise ValueError("Tribunal inválido.")
+            tribunal = self.__tribunais[tribunal_index]
+            novo_usuario = Juiz(novo_id, nome, cpf, nascimento, tribunal)
+
+        elif tipo.lower() == "advogado":
+            if not oab:
+                raise ValueError("Número da OAB é obrigatório para advogados.")
+            novo_usuario = Advogado(novo_id, nome, cpf, nascimento, oab)
+
+        elif tipo.lower() == "parte":
+            if parte_tipo == "reu":
+                novo_usuario = Reu(novo_id, nome, cpf, nascimento)
+            elif parte_tipo == "vitima":
+                novo_usuario = Vitima(novo_id, nome, cpf, nascimento)
+            else:
+                raise ValueError("Tipo de parte inválido.")
+
+        else:
+            raise ValueError("Tipo de usuário inválido")
+
+        self.__user_dao.add(novo_id, novo_usuario)
+
+
+    def editar_usuario(self, id, novo_nome):
+        usuario = self.__user_dao.get(id)
+        if usuario:
+            usuario.nome = novo_nome
+            self.__user_dao.update(id, usuario)
+
+    def get_todos_usuarios(self):
+        return list(self.__user_dao.get_all())
+
+    def get_usuarios_por_tipo(self, tipo):
+        return [u for u in self.__user_dao.get_all() if u.__class__.__name__.lower() == tipo.lower()]
