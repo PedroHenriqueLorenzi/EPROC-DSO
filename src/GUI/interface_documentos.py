@@ -1,27 +1,54 @@
 import PySimpleGUI as sg
 
-def tela_documentos():
-    sg.theme("DarkBlue")
+class InterfaceDocumentosGUI:
+    def __init__(self, controlador):
+        self.__controlador = controlador
 
-    layout = [
-        [sg.Text("Gerenciar Documentos", font=("Helvetica", 16))],
-        [sg.Button("Cadastrar Documento", size=(25, 2))],
-        [sg.Button("Listar Documentos", size=(25, 2))],
-        [sg.Button("Voltar", size=(25, 2))]
-    ]
+    def abre_tela(self):
+        sg.theme("DarkBlue3")
 
-    janela = sg.Window("MiniEPROC - Documentos", layout)
+        layout = [
+            [sg.Text("GERENCIAR DOCUMENTOS", font=("Helvetica", 20), justification="center", expand_x=True)],
+            [sg.HorizontalSeparator()],
+            [sg.Button("➕  Adicionar Documento", size=(30, 2))],
+            [sg.Button("✏️  Editar Documento", size=(30, 2))],
+            [sg.Button("🗑️  Remover Documento", size=(30, 2))],
+            [sg.Button("📋  Listar Documentos", size=(30, 2))],
+            [sg.Button("🔍  Buscar Documento", size=(30, 2))],
+            [sg.Button("🔙  Voltar", size=(30, 2))]
+        ]
 
-    while True:
-        evento, valores = janela.read()
-        if evento == sg.WINDOW_CLOSED or evento == "Voltar":
-            break
-        elif evento == "Cadastrar Documento":
-            sg.popup("Abrir tela de cadastro de documento (a implementar)")
-        elif evento == "Listar Documentos":
-            sg.popup("Abrir listagem de documentos (a implementar)")
+        janela = sg.Window("MiniEPROC - Documentos", layout, element_justification="center")
 
-    janela.close()
+        while True:
+            evento, _ = janela.read()
 
-if __name__ == "__main__":
-    tela_documentos()
+            if evento in (sg.WINDOW_CLOSED, "🔙  Voltar"):
+                break
+            elif evento == "➕  Adicionar Documento":
+                self._adicionar_documento()
+            elif evento == "✏️  Editar Documento":
+                self._editar_documento()
+            elif evento == "🗑️  Remover Documento":
+                self._remover_documento()
+            elif evento == "📋  Listar Documentos":
+                self._listar_documentos()
+            elif evento == "🔍  Buscar Documento":
+                self._buscar_documento()
+
+        janela.close()
+
+    def _adicionar_documento(self):
+        sg.popup("Abrir formulário de novo documento (a implementar)")
+
+    def _editar_documento(self):
+        sg.popup("Abrir edição de documento (a implementar)")
+
+    def _remover_documento(self):
+        sg.popup("Abrir remoção de documento (a implementar)")
+
+    def _listar_documentos(self):
+        sg.popup("Listagem de todos os documentos (a implementar)")
+
+    def _buscar_documento(self):
+        sg.popup("Tela de busca por documento (a implementar)")
