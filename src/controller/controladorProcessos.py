@@ -10,12 +10,13 @@ from datetime import datetime
 from DAOs.processoDAO import ProcessoDAO
 
 class ControladorProcessos:
-    def __init__(self, controlador_usuarios, controlador_documentos):
+    def __init__(self, controlador_usuarios, controlador_documentos, processo_dao):
         self.__controlador_usuarios = controlador_usuarios
         self.__controlador_documentos = controlador_documentos
         self.__tribunais = self.__carregar_tribunais()
         self.__tela = TelaProcessos()
         self.__usuario_logado = None
+        self.__processo_dao = processo_dao
         self.__processo_dao = ProcessoDAO()
 
     def set_usuario_logado(self, usuario: Usuario):
@@ -145,9 +146,18 @@ class ControladorProcessos:
         if any(isinstance(d, Sentenca) for d in processo.documentos):
             self.__tela.mostrar_mensagem("Este processo já possui sentença. Não é possível adicionar novos documentos.")
             return
+        
+        documento = self.__controlador_documentos.criar_documento_pela_tela(
+            self.__usuario_logado,
+            processo,
+            self.__controlador_usuarios.get_usuarios()
+        )
+        if documento:
+            self.__controlador_documentos.adicionar_documento_ao_processo(processo, documento)
+            self.__tela.mostrar_mensagem("Documento adicionado com sucesso!")
+        else:
+            self.__tela.mostrar_mensagem("Operação cancelada ou inválida.")
 
-        self.__controlador_documentos.abrir_tela_documento(self.__usuario_logado, processo, self.__controlador_usuarios.get_usuarios())
-        self.__processo_dao.update(processo.numero, processo)
 
     def editar_processo(self):
         processo = self.selecionar_processo()
@@ -417,3 +427,5 @@ class ControladorProcessos:
         return [f"{p.numero} - Contém audiência"
             for p in self.__processo_dao.get_all()
             if any(isinstance(d, Audiencia) for d in p.documentos)]
+    def get_processo_dao(self):
+        return self.__processo_dao

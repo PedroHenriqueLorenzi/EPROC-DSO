@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from datetime import datetime
 
 class InterfaceDocumentosGUI:
     def __init__(self, controlador_documentos):
@@ -12,14 +13,14 @@ class InterfaceDocumentosGUI:
             ("Sentença", "sentenca"),
         ]
         sg.theme("DarkBlue3")
-        layout = [
+        layout_tipo = [
             [sg.Text("Novo Documento no Processo", font=("Helvetica", 18), justification="center", expand_x=True)],
             [sg.HorizontalSeparator()],
             [sg.Text("Selecione o tipo de documento:", font=("Helvetica", 13))],
             [sg.Listbox([t[0] for t in tipos], key="tipo", size=(28, 4), font=("Helvetica", 12), expand_x=True)],
             [sg.Push(), sg.Button("Avançar", size=(12, 1)), sg.Button("Cancelar", size=(12, 1)), sg.Push()]
         ]
-        window = sg.Window("Adicionar Documento", layout, element_justification="center")
+        window = sg.Window("Adicionar Documento", layout_tipo, element_justification="center")
         evento, valores = window.read()
         window.close()
         if evento != "Avançar" or not valores["tipo"]:
@@ -27,22 +28,30 @@ class InterfaceDocumentosGUI:
         tipo_nome = valores["tipo"][0]
         tipo = dict(tipos)[tipo_nome]
 
-        layout = [
-            [sg.Text("Dados Básicos do Documento", font=("Helvetica", 15), justification="center", expand_x=True)],
-            [sg.HorizontalSeparator()],
-            [sg.Text("Título:", size=(15,1)), sg.Input(key="titulo", size=(40,1))],
-            [sg.Text("Descrição:", size=(15,1)), sg.Input(key="descricao", size=(40,1))],
-            [sg.Text("Data de envio:", size=(15,1)), sg.Input(key="data_envio", size=(20,1)), sg.Text("AAAA-MM-DD", font=("Helvetica", 9, "italic"))],
-            [sg.Push(), sg.Button("Avançar", size=(12, 1)), sg.Button("Cancelar", size=(12, 1)), sg.Push()]
-        ]
-        window = sg.Window("Dados Básicos do Documento", layout, element_justification="center")
-        evento, valores = window.read()
-        window.close()
-        if evento != "Avançar":
-            return
-        titulo = valores["titulo"]
-        descricao = valores["descricao"]
-        data_envio = valores["data_envio"]
+        while True:
+            layout_dados = [
+                [sg.Text("Dados Básicos do Documento", font=("Helvetica", 15), justification="center", expand_x=True)],
+                [sg.HorizontalSeparator()],
+                [sg.Text("Título:", size=(15,1)), sg.Input(key="titulo", size=(40,1))],
+                [sg.Text("Descrição:", size=(15,1)), sg.Input(key="descricao", size=(40,1))],
+                [sg.Text("Data de envio:", size=(15,1)), sg.Input(key="data_envio", size=(20,1)), sg.Text("AAAA-MM-DD", font=("Helvetica", 9, "italic"))],
+                [sg.Push(), sg.Button("Avançar", size=(12, 1)), sg.Button("Cancelar", size=(12, 1)), sg.Push()]
+            ]
+            window = sg.Window("Dados Básicos do Documento", layout_dados, element_justification="center")
+            evento, valores = window.read()
+            window.close()
+            if evento != "Avançar":
+                return
+
+            titulo = valores["titulo"]
+            descricao = valores["descricao"]
+            data_envio = valores["data_envio"]
+
+            try:
+                datetime.strptime(data_envio, "%Y-%m-%d")
+                break
+            except ValueError:
+                sg.popup_error("Formato de data inválido. Use AAAA-MM-DD.")
 
         id_doc = self.__controlador.get_proximo_id(processo)
         dados_extra = {}
@@ -99,18 +108,27 @@ class InterfaceDocumentosGUI:
             dados_extra["vitima"] = vitimas[0]
 
         elif tipo == "audiencia":
-            layout = [
-                [sg.Text("Audiência", font=("Helvetica", 15), justification="center", expand_x=True)],
-                [sg.HorizontalSeparator()],
-                [sg.Text("Data da audiência:", size=(18,1)), sg.Input(key="data_audiencia", size=(20,1)), sg.Text("AAAA-MM-DD", font=("Helvetica", 9, "italic"))],
-                [sg.Push(), sg.Button("Avançar", size=(12, 1)), sg.Button("Cancelar", size=(12, 1)), sg.Push()]
-            ]
-            window = sg.Window("Data da Audiência", layout, element_justification="center")
-            evento, valores = window.read()
-            window.close()
-            if evento != "Avançar":
-                return
-            dados_extra["data_audiencia"] = valores["data_audiencia"]
+            while True:
+                layout = [
+                    [sg.Text("Audiência", font=("Helvetica", 15), justification="center", expand_x=True)],
+                    [sg.HorizontalSeparator()],
+                    [sg.Text("Data da audiência:", size=(18,1)), sg.Input(key="data_audiencia", size=(20,1)), sg.Text("AAAA-MM-DD", font=("Helvetica", 9, "italic"))],
+                    [sg.Push(), sg.Button("Avançar", size=(12, 1)), sg.Button("Cancelar", size=(12, 1)), sg.Push()]
+                ]
+                window = sg.Window("Data da Audiência", layout, element_justification="center")
+                evento, valores = window.read()
+                window.close()
+                if evento != "Avançar":
+                    return
+
+                data_audiencia = valores["data_audiencia"]
+                try:
+                    datetime.strptime(data_audiencia, "%Y-%m-%d")
+                    break
+                except ValueError:
+                    sg.popup_error("Formato de data inválido. Use AAAA-MM-DD.")
+
+            dados_extra["data_audiencia"] = data_audiencia
 
             advogados = [u for u in lista_usuarios if u.__class__.__name__.lower() == "advogado"]
             if not advogados:
@@ -142,7 +160,6 @@ class InterfaceDocumentosGUI:
         try:
             documento = self.__controlador.criar_documento(tipo, dados_doc, usuario_logado, processo)
             processo.adicionar_documento(documento)
-            self.__controlador_processos.get_processo_dao().update(processo.numero, processo)
             sg.popup(f"{tipo_nome} adicionada ao processo com sucesso!")
         except (PermissionError, ValueError) as e:
             sg.popup_error(str(e))

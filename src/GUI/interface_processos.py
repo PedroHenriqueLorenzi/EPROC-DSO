@@ -440,3 +440,4 @@ class InterfaceProcessosGUI:
             processo,
             self.__controlador.get_usuarios()
         )
+        self.__controlador.get_processo_dao().update(processo.numero, processo)

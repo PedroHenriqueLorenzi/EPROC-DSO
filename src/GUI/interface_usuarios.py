@@ -41,36 +41,44 @@ class InterfaceUsuariosGUI:
 
 
     def _cadastrar_usuario(self):
+        tribunais = self.__controlador.get_tribunais()
+        sg.theme("DarkBlue4")
         layout = [
-            [sg.Text("Nome:"), sg.Input(key="nome")],
-            [sg.Text("CPF (somente números, 11 dígitos):"), sg.Input(key="cpf", size=(20,1), enable_events=True)],
-            [sg.Text("", key="cpf_status", size=(30,1), text_color="yellow")],
-            [sg.Text("Data de Nascimento (DD-MM-AAAA):"), sg.Input(key="nascimento")],
-            [sg.Text("Tipo:")],
-            [sg.Radio("Juiz", "TIPO_USUARIO", key="tipo_juiz", enable_events=True),
-             sg.Radio("Advogado", "TIPO_USUARIO", key="tipo_advogado", enable_events=True),
-             sg.Radio("Parte", "TIPO_USUARIO", key="tipo_parte", enable_events=True)],
-            [sg.Text("OAB (somente para Advogados):"), sg.Input(key="oab", visible=False)],
-            [sg.Submit("Salvar"), sg.Cancel("Cancelar")]
+            [sg.Text("Nome:", size=(20,1)), sg.Input(key="nome", size=(40,1))],
+            [sg.Text("CPF (somente números, 11 dígitos):", size=(30,1)), 
+            sg.Input(key="cpf", size=(20,1), enable_events=True), 
+            sg.Text("", key="cpf_feedback", size=(25,1), text_color="yellow")],
+            [sg.Text("Data de Nascimento (DD-MM-AAAA):", size=(30,1)), sg.Input(key="nascimento", size=(20,1))],
+            [sg.Text("Tipo de Usuário:")],
+            [sg.Radio("Juiz", "tipo", key="tipo_juiz", enable_events=True),
+            sg.Radio("Advogado", "tipo", key="tipo_advogado", enable_events=True),
+            sg.Radio("Parte", "tipo", key="tipo_parte", enable_events=True)],
+            [sg.Column([[sg.Text("Subtipo da Parte:"), sg.Combo(["Reu", "Vitima"], key="parte_tipo")]], key="col_parte", visible=False, pad=(0, 0))],
+            [sg.Column([[sg.Text("OAB:"), sg.Input(key="oab")]], key="col_oab", visible=False, pad=(0, 0))],
+            [sg.Column([[sg.Text("Tribunal:"), sg.Combo([t.nome for t in tribunais], key="tribunal")]], key="col_tribunal", visible=False, pad=(0, 0))],
+            [sg.Button("Salvar"), sg.Button("Cancelar")]
         ]
 
-        window = sg.Window("Cadastrar Usuário", layout, finalize=True)
+        window = sg.Window("Cadastro de Usuário", layout)
+
         while True:
             event, values = window.read()
-            if event in (sg.WINDOW_CLOSED, "Cancelar"):
+            if event in (sg.WIN_CLOSED, "Cancelar"):
                 break
 
             if event == "cpf":
-                texto = values["cpf"]
-                if len(texto) > 11:
-                    window["cpf"].update(texto[:11])
-                elif len(texto) == 11:
-                    window["cpf_status"].update("✔ CPF completo")
+                cpf_input = values["cpf"]
+                if len(cpf_input) < 11:
+                    window["cpf_feedback"].update(f"Faltam {11 - len(cpf_input)} dígitos")
+                elif len(cpf_input) > 11:
+                    window["cpf_feedback"].update("CPF excede 11 dígitos", text_color="red")
                 else:
-                    window["cpf_status"].update(f"{11 - len(texto)} dígito(s) faltando")
+                    window["cpf_feedback"].update("✔ CPF completo", text_color="green")
 
             if event in ("tipo_juiz", "tipo_advogado", "tipo_parte"):
-                window["oab"].update(visible=values.get("tipo_advogado", False))
+                window["col_oab"].update(visible=values["tipo_advogado"])
+                window["col_tribunal"].update(visible=values["tipo_juiz"])
+                window["col_parte"].update(visible=values["tipo_parte"])
 
             if event == "Salvar":
                 try:
@@ -78,31 +86,49 @@ class InterfaceUsuariosGUI:
                     cpf = values["cpf"].strip()
                     nascimento = values["nascimento"].strip()
                     oab = values.get("oab", "").strip()
-
-                    tipo = "Juiz" if values.get("tipo_juiz") else "Advogado" if values.get("tipo_advogado") else "Parte"
+                    parte_tipo = values.get("parte_tipo")
 
                     if len(cpf) != 11 or not cpf.isdigit():
                         sg.popup_error("CPF deve conter 11 dígitos numéricos.")
                         continue
 
                     cpf_formatado = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
-
                     try:
                         datetime.strptime(nascimento, "%d-%m-%Y")
                     except ValueError:
                         sg.popup_error("Data de nascimento deve estar no formato DD-MM-AAAA.")
                         continue
 
-                    args = [nome, cpf_formatado, nascimento, tipo]
-                    if tipo == "Advogado":
-                        args.append(oab)
+                    if values["tipo_advogado"]:
+                        self.__controlador.criar_usuario(nome, cpf_formatado, nascimento, "Advogado", oab=oab)
 
-                    self.__controlador.criar_usuario(*args)
+                    elif values["tipo_juiz"]:
+                        nome_tribunal = values.get("tribunal")
+                        if not nome_tribunal:
+                            sg.popup_error("Selecione o tribunal.")
+                            continue
+                        tribunais_dict = {t.nome: i for i, t in enumerate(tribunais)}
+                        self.__controlador.criar_usuario(nome, cpf_formatado, nascimento, "Juiz", tribunal_index=tribunais_dict[nome_tribunal])
+
+                    elif values["tipo_parte"]:
+                        if parte_tipo not in ("Reu", "Vitima"):
+                            sg.popup_error("Selecione o subtipo da parte (Réu ou Vítima).")
+                            continue
+                        self.__controlador.criar_usuario(nome, cpf_formatado, nascimento, "Parte", parte_tipo=parte_tipo.lower())
+
+                    else:
+                        sg.popup_error("Selecione um tipo de usuário.")
+                        continue
+
                     sg.popup_ok("Usuário cadastrado com sucesso!")
                     break
+
                 except Exception as e:
                     sg.popup_error(f"Erro ao cadastrar: {str(e)}")
+
         window.close()
+
+
 
     def _editar_usuario(self):
         id_str = sg.popup_get_text("Digite o ID do usuário a editar:")

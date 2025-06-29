@@ -6,13 +6,15 @@ from controller.controladorUsuarios import ControladorUsuarios
 from controller.controladorProcessos import ControladorProcessos
 from controller.controladorDocumentos import ControladorDocumentos
 from module.tribunal import Tribunal
+from DAOs.processoDAO import ProcessoDAO
 
 class ControladorSistema:
     def __init__(self):
-        self.__controlador_documentos = ControladorDocumentos()
+        self.__processo_dao = ProcessoDAO()
+        self.__controlador_documentos = ControladorDocumentos(self.__processo_dao)
         self.__controlador_usuarios = ControladorUsuarios(self.get_tribunais())
         self.__controlador_processos = ControladorProcessos(
-            self.__controlador_usuarios, self.__controlador_documentos
+            self.__controlador_usuarios, self.__controlador_documentos, self.__processo_dao
         )
         self.__tela = InterfacePrincipalGUI(self)
 

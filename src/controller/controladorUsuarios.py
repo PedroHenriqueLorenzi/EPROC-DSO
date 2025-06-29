@@ -52,11 +52,21 @@ class ControladorUsuarios:
             dados["oab"] = input("Digite o número da OAB do advogado: ")
             novo_usuario = Advogado(**dados)
 
-        elif tipo == "vitima":
-            novo_usuario = Vitima(**dados)
+        elif tipo in ("vitima", "reu"):
+            if tipo == "vitima":
+                novo_usuario = Vitima(**dados)
+            else:
+                novo_usuario = Reu(**dados)
 
-        elif tipo == "reu":
-            novo_usuario = Reu(**dados)
+        elif tipo == "parte":
+            parte_tipo = dados.get("parte_tipo", "").lower()
+            if parte_tipo == "reu":
+                novo_usuario = Reu(**dados)
+            elif parte_tipo == "vitima":
+                novo_usuario = Vitima(**dados)
+            else:
+                self.__tela.mostrar_mensagem("Tipo de parte inválido.")
+                return
 
         else:
             self.__tela.mostrar_mensagem("Tipo inválido.")
@@ -136,3 +146,6 @@ class ControladorUsuarios:
 
     def get_usuarios_por_tipo(self, tipo):
         return [u for u in self.__user_dao.get_all() if u.__class__.__name__.lower() == tipo.lower()]
+    
+    def get_tribunais(self):
+        return self.__tribunais

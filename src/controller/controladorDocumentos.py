@@ -7,8 +7,13 @@ from module.usuario.advogado import Advogado
 from view.telaDocumentos import TelaDocumentos
 
 class ControladorDocumentos:
-    def __init__(self):
+    def __init__(self, processo_dao):
         self.__tela_documentos = TelaDocumentos()
+        self.__processo_dao = processo_dao
+
+    def adicionar_documento_ao_processo(self, processo, documento):
+        processo.adicionar_documento(documento)
+        self.__processo_dao.update(processo.numero, processo)
 
     def abrir_tela_documento(self, usuario_logado, processo, lista_usuarios):
         tipo = self.__tela_documentos.mostrar_menu_documentos()
