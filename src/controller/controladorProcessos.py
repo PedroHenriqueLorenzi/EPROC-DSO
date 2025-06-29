@@ -49,12 +49,6 @@ class ControladorProcessos:
             else:
                 self.__tela.mostrar_mensagem("Opção inválida.")
 
-    def criar_processo(self):
-        tipo = self.__usuario_logado.__class__.__name__.lower()
-        if tipo not in ["juiz", "advogado", "promotor"]:
-            self.__tela.mostrar_mensagem("Você não tem permissão para criar processos.")
-            return
-
         numero = self.__tela.solicitar_numero_processo()
         data_abertura = self.__tela.solicitar_data_processo()
         juiz = self.__tela.solicitar_juiz(self.__controlador_usuarios.get_usuarios())
@@ -346,3 +340,80 @@ class ControladorProcessos:
             linhas.append(linha)
         self.__tela.exibir_relatorio(linhas)
 
+    def get_usuarios(self):
+        return self.__controlador_usuarios.get_usuarios()
+
+    def get_tribunais(self):
+        return self.__tribunais
+
+    def get_todos_processos(self):
+        return list(self.__processo_dao.get_all())
+
+    def get_lista_processos_gui(self):
+        return [f"{p.numero} - Status: {p.status} - Tribunal: {p.tribunal.nome}" for p in self.__processo_dao.get_all()]
+
+    def criar_processo(self, numero, data_abertura, juiz, tribunal, advogados, partes, status="Ativo"):
+        if self.__processo_dao.get(numero) is not None:
+            raise ValueError(f"Já existe um processo com o número {numero}.")
+        processo = Processo(
+            numero=numero,
+            data_abertura=data_abertura,
+            status=status,
+            juiz_responsavel=juiz,
+            advogados=advogados,
+            partes=partes,
+            tribunal=tribunal
+        )
+        self.__processo_dao.add(numero, processo)
+
+
+    def remover_processo(self, numero):
+        self.__processo_dao.remove(numero)
+
+    def atualizar_processo(self, processo):
+        self.__processo_dao.update(processo.numero, processo)
+
+    # RELATÓRIOS
+
+    def relatorio_por_status(self, status):
+        lista = [p for p in self.__processo_dao.get_all() if p.status.lower() == status.lower()]
+        return [f"{p.numero} - {p.status}" for p in lista]
+
+    def relatorio_por_juiz(self, id_juiz):
+        lista = [p for p in self.__processo_dao.get_all() if p.juiz_responsavel.id == id_juiz]
+        return [f"{p.numero} - Status: {p.status} - Tribunal: {p.tribunal.nome}" for p in lista]
+
+    def relatorio_sem_audiencia(self):
+        return [f"{p.numero} - Sem audiência"
+                for p in self.__processo_dao.get_all()
+                if not any(isinstance(d, Audiencia) for d in p.documentos)]
+
+    def relatorio_com_sentenca(self):
+        return [f"{p.numero} - Contém sentença"
+                for p in self.__processo_dao.get_all()
+                if any(isinstance(d, Sentenca) for d in p.documentos)]
+
+    def relatorio_tempo_medio(self):
+        encerrados = [p for p in self.__processo_dao.get_all() if p.status.lower() == "encerrado"]
+        if not encerrados:
+            return 0
+        total_dias = 0
+        count = 0
+        for p in encerrados:
+            try:
+                data_inicio = datetime.strptime(p.data_abertura, "%Y-%m-%d")
+                data_fim = max(datetime.strptime(d.data_envio, "%Y-%m-%d") for d in p.documentos)
+                total_dias += (data_fim - data_inicio).days
+                count += 1
+            except Exception:
+                continue
+        return total_dias / count if count else 0
+
+    def relatorio_documentos_por_processo(self):
+        return [f"Processo {p.numero}: {len(p.documentos)} documento(s)"
+                for p in self.__processo_dao.get_all()]
+    def relatorio_com_audiencia(self):
+   
+        return [f"{p.numero} - Contém audiência"
+            for p in self.__processo_dao.get_all()
+            if any(isinstance(d, Audiencia) for d in p.documentos)]

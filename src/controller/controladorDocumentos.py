@@ -32,6 +32,7 @@ class ControladorDocumentos:
         try:
             documento = self.criar_documento(tipo, dados_doc, usuario_logado, processo)
             processo.adicionar_documento(documento)
+            self.__controlador_processos.get_processo_dao().update(processo.numero, processo)
             print(f">>> {tipo.capitalize()} adicionada ao processo.")
         except (PermissionError, ValueError) as e:
             print(f">>> Erro: {str(e)}")
@@ -104,3 +105,8 @@ class ControladorDocumentos:
             raise ValueError("Tipo de documento inválido.")
 
         return doc
+
+    def get_proximo_id(self, processo):
+        if not processo.documentos:
+            return 1
+        return max(doc.id for doc in processo.documentos) + 1

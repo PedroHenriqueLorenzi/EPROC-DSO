@@ -1,9 +1,11 @@
 import PySimpleGUI as sg
 from GUI.interface_principal import InterfacePrincipalGUI
 from GUI.interface_usuarios import InterfaceUsuariosGUI
+from GUI.interface_processos import InterfaceProcessosGUI
 from controller.controladorUsuarios import ControladorUsuarios
 from controller.controladorProcessos import ControladorProcessos
 from controller.controladorDocumentos import ControladorDocumentos
+from module.tribunal import Tribunal
 
 class ControladorSistema:
     def __init__(self):
@@ -15,7 +17,6 @@ class ControladorSistema:
         self.__tela = InterfacePrincipalGUI(self)
 
     def get_tribunais(self):
-        from module.tribunal import Tribunal
         return [
             Tribunal(1, "TJSC", "Santa Catarina", "Tribunal de Justiça de SC", "1ª Instância"),
             Tribunal(2, "TRF4", "Região Sul", "Tribunal Regional Federal da 4ª Região", "2ª Instância")
@@ -35,13 +36,9 @@ class ControladorSistema:
                     usuario = self.__controlador_usuarios.buscar_usuario_por_id(id_usuario)
 
                     if usuario:
-                        tipo = usuario.__class__.__name__.lower()
-                        if tipo in ["juiz", "advogado", "promotor"]:
-                            sg.popup_ok("Redirecionando para terminal...", title="Modo Texto")
-                            self.__controlador_processos.set_usuario_logado(usuario)
-                            self.__controlador_processos.abrir_tela()
-                        else:
-                            sg.popup_error(f"Usuário do tipo '{tipo}' não tem permissão para acessar processos.")
+                        self.__controlador_processos.set_usuario_logado(usuario)
+                        gui = InterfaceProcessosGUI(self.__controlador_processos, self.__controlador_documentos)
+                        gui.abre_tela()
                     else:
                         sg.popup_error("Usuário não encontrado.")
                 else:
