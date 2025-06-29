@@ -76,13 +76,15 @@ class ControladorUsuarios:
         lista = [f"{u.id} - {u.nome} ({u.__class__.__name__})" for u in usuarios if u.__class__.__name__.lower() == tipo.lower()]
         self.__tela.exibir_usuarios(lista)
 
-    def remover_usuario(self):
-        id_remover = self.__tela.solicitar_id()
+    def remover_usuario(self, id_remover=None):
+        if id_remover is None:
+            id_remover = self.__tela.solicitar_id()
         if self.__user_dao.get(id_remover):
             self.__user_dao.remove(id_remover)
             self.__tela.mostrar_mensagem("Usuário removido.")
         else:
             self.__tela.mostrar_mensagem("Usuário não encontrado.")
+
 
     def buscar_usuario_por_id(self, id_usuario):
         return self.__user_dao.get(id_usuario)
@@ -119,10 +121,14 @@ class ControladorUsuarios:
         self.__user_dao.add(novo_id, novo_usuario)
 
 
-    def editar_usuario(self, id, novo_nome):
+    def editar_usuario(self, id, novo_nome, novo_nascimento=None, nova_oab=None):
         usuario = self.__user_dao.get(id)
         if usuario:
             usuario.nome = novo_nome
+            if novo_nascimento:
+                usuario.data_nascimento = novo_nascimento 
+            if hasattr(usuario, "oab") and nova_oab is not None:
+                usuario.oab = nova_oab
             self.__user_dao.update(id, usuario)
 
     def get_todos_usuarios(self):
