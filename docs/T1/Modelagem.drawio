@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram name="Page-1" id="c4acf3e9-155e-7222-9cf6-157b1a14988f">
-        <mxGraphModel dx="8730" dy="3913" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+        <mxGraphModel dx="1358" dy="1389" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -11,10 +11,10 @@
                     <mxGeometry x="720" y="170" width="590" height="100" as="geometry"/>
                 </mxCell>
                 <mxCell id="IntvYzq0Ck3v-AkWwq2L-13" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Advogado&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- oab: str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(oab:str, id: int, nome: str, cpf: str, data_nascimento: date, oab:str)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63);&quot;&gt;+ oab&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;+ oab(oab: int)&lt;/span&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
-                    <mxGeometry x="730" y="-530" width="590" height="140" as="geometry"/>
+                    <mxGeometry x="740" y="-520" width="590" height="140" as="geometry"/>
                 </mxCell>
                 <mxCell id="IntvYzq0Ck3v-AkWwq2L-16" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Juiz&lt;/p&gt;&lt;br&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;numero_funcional&amp;nbsp;: int&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;tribunal_atribuido: str,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;id: int, nome: str, cpf: str, data_nascimento: date)&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
-                    <mxGeometry x="720" y="-147" width="590" height="115" as="geometry"/>
+                    <mxGeometry x="720" y="-147.5" width="590" height="115" as="geometry"/>
                 </mxCell>
                 <mxCell id="IntvYzq0Ck3v-AkWwq2L-21" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Processo&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- numero: str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- data_abertura: date&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- status: str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- juiz_responsavel: Juiz&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- advogados: [Advogado]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- partes: [Parte]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- documentos: [Documento]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- movimentacoes: [Movimentacao]&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- sentenca: Sentenca&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(numero: str, juiz: Juiz)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ numero(): str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ data_abertura(): date&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ status(): str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ juiz_responsavel(): Juiz&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ adicionar_parte(parte: Parte): None&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ adicionar_advogado(advogado: Advogado): None&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ adicionar_documento(documento: Documento): None&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ registrar_movimentacao(movimentacao: Movimentacao): None&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ emitir_sentenca(sentenca: Sentenca): None&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;+ encerrar_processo(): None&lt;/span&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
                     <mxGeometry x="1630" y="-275" width="380" height="390" as="geometry"/>
@@ -28,12 +28,13 @@
                 <mxCell id="IntvYzq0Ck3v-AkWwq2L-25" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Arquivamento&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;- motivo: str&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(id: int, conteudo: str, data: date, juiz: Juiz)&lt;br&gt;+motivo&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+motivo(motivo:str)&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
                     <mxGeometry x="2900" y="115" width="410" height="170" as="geometry"/>
                 </mxCell>
-                <mxCell id="IntvYzq0Ck3v-AkWwq2L-29" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="IntvYzq0Ck3v-AkWwq2L-13" target="5d2195bd80daf111-18" edge="1">
+                <mxCell id="IntvYzq0Ck3v-AkWwq2L-29" value="" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="5d2195bd80daf111-18" edge="1">
                     <mxGeometry width="160" relative="1" as="geometry">
-                        <mxPoint x="730" y="-719.2753623188407" as="sourcePoint"/>
+                        <mxPoint x="680" y="-630" as="sourcePoint"/>
                         <mxPoint x="710" y="-200" as="targetPoint"/>
                         <Array as="points">
-                            <mxPoint x="680" y="-460"/>
+                            <mxPoint x="680" y="-740"/>
+                            <mxPoint x="680" y="-640"/>
                             <mxPoint x="680" y="-270"/>
                             <mxPoint x="680" y="-90"/>
                         </Array>
@@ -247,17 +248,10 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="120" value="" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="IntvYzq0Ck3v-AkWwq2L-13" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="680" y="-460.59" as="sourcePoint"/>
-                        <mxPoint x="720" y="-460.41999999999996" as="targetPoint"/>
-                        <Array as="points"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="121" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;TelaProcessos&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+mostrar_menu(usuario_logado) -&amp;gt; int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+mostrar_mensagem(mensagem: str)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+solicitar_numero_processo() -&amp;gt; int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+solicitar_data_processo() -&amp;gt; str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+solicitar_data(msg: str) -&amp;gt; str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+solicitar_juiz(usuarios: list)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+selecionar_tribunal(tribunais: list)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+selecionar_numero_processo() -&amp;gt; int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ler_dados_documento() -&amp;gt; tuple&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+mostrar_menu_relatorio() -&amp;gt; int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+exibir_relatorio(linhas: list)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+solicitar_status() -&amp;gt; str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+solicitar_nome_juiz() -&amp;gt; str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+confirmar(msg: str) -&amp;gt; bool&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+selecionar_usuarios_por_id(lista_usuarios: list, tipo: str) -&amp;gt; list&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+mostrar_menu_edicao() -&amp;gt; int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+exibir_lista_processos(lista: list)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
+                <mxCell id="121" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;TelaProcessos&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+mostrar_menu(usuario_logado) -&amp;gt; int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+mostrar_mensagem(mensagem: str)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+solicitar_numero_processo() -&amp;gt; int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+solicitar_data_processo() -&amp;gt; str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+solicitar_data(msg: str) -&amp;gt; str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+solicitar_juiz(usuarios: list)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+selecionar_tribunal(tribunais: list)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+selecionar_numero_processo() -&amp;gt; int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ler_dados_documento() -&amp;gt; tuple&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+mostrar_menu_relatorio() -&amp;gt; int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+exibir_relatorio(linhas: list)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+solicitar_status() -&amp;gt; str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+solicitar_nome_juiz() -&amp;gt; str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+confirmar(msg: str) -&amp;gt; bool&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+selecionar_usuarios_por_id(lista_usuarios: list, tipo: str) -&amp;gt; list&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+mostrar_menu_edicao() -&amp;gt; int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+exibir_lista_processos(lista: list)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
                     <mxGeometry x="-405" y="680" width="380" height="330" as="geometry"/>
                 </mxCell>
-                <mxCell id="124" value="" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1">
+                <mxCell id="124" value="" style="endArrow=none;html=1;edgeStyle=orthogonalEdgeStyle;" parent="1" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="2801" y="-40" as="sourcePoint"/>
                         <mxPoint x="2901" y="-40" as="targetPoint"/>
@@ -267,16 +261,16 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="125" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;ControladorProcessos&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-processos: list&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-tribunais: list&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-tela: TelaProcessos&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-usuario_logado: Usuario&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-controlador_usuarios: ControladorUsuarios&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ abrir_tela()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ criar_processo()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ listar_processos()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ selecionar_processo()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ adicionar_documento()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ editar_processo()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ encerrar_processo()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ gerar_relatorio()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ exibir_detalhes_processo()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ get_tribunais()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- _relatorio_por_status()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- _relatorio_por_juiz()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- _relatorio_sem_audiencia()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- _relatorio_com_sentenca()&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
+                <mxCell id="125" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;ControladorProcessos&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-processos: list&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-tribunais: list&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-tela: TelaProcessos&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-usuario_logado: Usuario&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;-controlador_usuarios: ControladorUsuarios&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ abrir_tela()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ criar_processo()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ listar_processos()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ selecionar_processo()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ adicionar_documento()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ editar_processo()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ encerrar_processo()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ gerar_relatorio()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ exibir_detalhes_processo()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ get_tribunais()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- _relatorio_por_status()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- _relatorio_por_juiz()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- _relatorio_sem_audiencia()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- _relatorio_com_sentenca()&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" parent="1" vertex="1">
                     <mxGeometry x="-405" y="200" width="380" height="340" as="geometry"/>
                 </mxCell>
-                <mxCell id="126" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="64" target="55">
+                <mxCell id="126" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="64" target="55" edge="1">
                     <mxGeometry width="160" relative="1" as="geometry">
                         <mxPoint x="-505" y="-85.59" as="sourcePoint"/>
                         <mxPoint x="-345" y="-85.59" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="127" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="64" target="125">
+                <mxCell id="127" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="64" target="125" edge="1">
                     <mxGeometry width="160" relative="1" as="geometry">
                         <mxPoint x="-529" y="140" as="sourcePoint"/>
                         <mxPoint x="-322" y="140" as="targetPoint"/>
@@ -286,7 +280,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="128" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="121" target="IntvYzq0Ck3v-AkWwq2L-21">
+                <mxCell id="128" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" parent="1" source="121" target="IntvYzq0Ck3v-AkWwq2L-21" edge="1">
                     <mxGeometry width="160" relative="1" as="geometry">
                         <mxPoint x="10" y="860" as="sourcePoint"/>
                         <mxPoint x="170" y="860" as="targetPoint"/>
@@ -295,7 +289,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="129" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="55" target="IntvYzq0Ck3v-AkWwq2L-23">
+                <mxCell id="129" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="55" target="IntvYzq0Ck3v-AkWwq2L-23" edge="1">
                     <mxGeometry width="160" relative="1" as="geometry">
                         <mxPoint x="870" y="320" as="sourcePoint"/>
                         <mxPoint x="1870" y="140" as="targetPoint"/>
@@ -308,25 +302,50 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="132" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="125" target="55">
+                <mxCell id="132" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="125" target="55" edge="1">
                     <mxGeometry width="160" relative="1" as="geometry">
                         <mxPoint x="-240" y="211" as="sourcePoint"/>
                         <mxPoint x="-234.09" y="28" as="targetPoint"/>
                         <Array as="points"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="133" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="125" target="121">
+                <mxCell id="133" value="" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="125" target="121" edge="1">
                     <mxGeometry width="160" relative="1" as="geometry">
                         <mxPoint x="130" y="620" as="sourcePoint"/>
                         <mxPoint x="290" y="620" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="134" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="121" target="5d2195bd80daf111-18">
+                <mxCell id="134" value="" style="endArrow=open;endFill=1;endSize=12;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="121" target="5d2195bd80daf111-18" edge="1">
                     <mxGeometry width="160" relative="1" as="geometry">
                         <mxPoint x="90" y="1010" as="sourcePoint"/>
                         <mxPoint x="90" y="830" as="targetPoint"/>
                         <Array as="points">
                             <mxPoint x="340" y="928"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="135" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;Promotor&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- area_atuacao: str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;ultima_acusacao: str&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ __init__(area_atuacao:str, ultima_acusacao: str, id: int, nome: str, cpf: str, data_nascimento: date, oab:str)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63);&quot;&gt;+ area_atuacao&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;+ area_atuacao(area_atuacao)&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ ultima_acusacao&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ ultima_acusacao(ultima_acusacao)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1" vertex="1" parent="1">
+                    <mxGeometry x="720" y="-790" width="590" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="142" value="" style="endArrow=none;startArrow=sysMLx;endFill=0;startFill=0;html=1;verticalAlign=bottom;labelBackgroundColor=none;strokeWidth=1;startSize=8;" edge="1" parent="1">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="700" y="-470" as="sourcePoint"/>
+                        <mxPoint x="700" y="-470" as="targetPoint"/>
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="160" value="" style="endArrow=none;startArrow=none;endFill=0;startFill=0;endSize=8;html=1;verticalAlign=bottom;labelBackgroundColor=none;strokeWidth=3;" edge="1" parent="1">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="680" y="-440" as="sourcePoint"/>
+                        <mxPoint x="740" y="-440" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="161" value="" style="endArrow=none;startArrow=none;endFill=0;startFill=0;endSize=8;html=1;verticalAlign=bottom;labelBackgroundColor=none;strokeWidth=3;" edge="1" parent="1">
+                    <mxGeometry width="160" relative="1" as="geometry">
+                        <mxPoint x="690" y="-730" as="sourcePoint"/>
+                        <mxPoint x="720" y="-730" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="670" y="-730"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
