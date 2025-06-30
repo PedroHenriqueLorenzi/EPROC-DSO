@@ -42,76 +42,64 @@ class ControladorDocumentos:
         except (PermissionError, ValueError) as e:
             print(f">>> Erro: {str(e)}")
 
-    def criar_documento(self, tipo, dados_doc, usuario_logado, processo):
-        doc = None
-
+    def criar_documento(self, tipo, dados: dict, autor, processo):
         if tipo == "sentenca":
-            if not isinstance(usuario_logado, Juiz):
+            if autor.__class__.__name__.lower() != "juiz":
                 raise PermissionError("Apenas juízes podem emitir sentenças.")
-            if "reu" not in dados_doc or "vitima" not in dados_doc:
+            if "reu" not in dados or "vitima" not in dados:
                 raise ValueError("Sentenças exigem réu e vítima.")
-            doc = Sentenca(
-                id=dados_doc["id"],
-                titulo=dados_doc["titulo"],
-                descricao=dados_doc["descricao"],
-                data_envio=dados_doc["data_envio"],
-                autor=usuario_logado,
-                reu=dados_doc["reu"],
-                vitima=dados_doc["vitima"]
-            )
+            return Sentenca(**dados, autor=autor)
 
         elif tipo == "acusacao":
-            if not isinstance(usuario_logado, Advogado):
-                raise PermissionError("Apenas advogados podem criar acusações.")
-            if "vitima" not in dados_doc:
+            if autor.__class__.__name__.lower() != "advogado":
+                raise PermissionError("Apenas advogados podem emitir acusações.")
+            if "vitima" not in dados:
                 raise ValueError("Acusações exigem uma vítima.")
-            doc = Acusacao(
-                id=dados_doc["id"],
-                titulo=dados_doc["titulo"],
-                descricao=dados_doc["descricao"],
-                data_envio=dados_doc["data_envio"],
-                autor=usuario_logado,
-                vitima=dados_doc["vitima"]
-            )
+            return Acusacao(**dados, autor=autor)
 
         elif tipo == "defesa":
-            if not isinstance(usuario_logado, Advogado):
-                raise PermissionError("Apenas advogados podem criar defesas.")
-            if "reu" not in dados_doc:
+            if autor.__class__.__name__.lower() != "advogado":
+                raise PermissionError("Apenas advogados podem emitir defesas.")
+            if "reu" not in dados:
                 raise ValueError("Defesas exigem um réu.")
-            doc = Defesa(
-                id=dados_doc["id"],
-                titulo=dados_doc["titulo"],
-                descricao=dados_doc["descricao"],
-                data_envio=dados_doc["data_envio"],
-                autor=usuario_logado,
-                reu=dados_doc["reu"]
-            )
+            return Defesa(**dados, autor=autor)
 
         elif tipo == "audiencia":
-            if not isinstance(usuario_logado, Juiz):
-                raise PermissionError("Apenas juízes podem agendar audiências.")
-            if "data_audiencia" not in dados_doc or "advogado" not in dados_doc:
-                raise ValueError("Audiências exigem data e advogado responsável.")
-            doc = Audiencia(
-                id=dados_doc["id"],
-                titulo=dados_doc["titulo"],
-                descricao=dados_doc["descricao"],
-                data_envio=dados_doc["data_envio"],
-                autor=dados_doc["advogado"],
-                juiz_responsavel=usuario_logado,
-                data=dados_doc["data_audiencia"]
+            if autor.__class__.__name__.lower() != "juiz":
+                raise PermissionError("Apenas juízes podem marcar audiências.")
+            if "data_audiencia" not in dados or "advogado" not in dados:
+                raise ValueError("Audiências exigem um advogado e uma data.")
+            
+            juiz_responsavel = autor
+            advogado_responsavel = dados.pop("advogado")
+            data_audiencia = dados.pop("data_audiencia")
+
+            return Audiencia(
+                id=dados["id"],
+                titulo=dados["titulo"],
+                descricao=dados["descricao"],
+                data_envio=dados["data_envio"],
+                autor=advogado_responsavel,
+                juiz_responsavel=juiz_responsavel,
+                data=data_audiencia
             )
 
         elif tipo == "arquivamento":
-            raise PermissionError("Arquivamento é criado automaticamente ao encerrar o processo.")
+            raise PermissionError("Arquivamentos são gerados automaticamente ao encerrar o processo.")
 
         else:
             raise ValueError("Tipo de documento inválido.")
-
-        return doc
 
     def get_proximo_id(self, processo):
         if not processo.documentos:
             return 1
         return max(doc.id for doc in processo.documentos) + 1
+    
+    def validar_permissao_documento(self, tipo: str, usuario):
+
+        if tipo == "sentenca" and not isinstance(usuario, Juiz):
+            raise PermissionError("Apenas juízes podem emitir sentenças.")
+        elif tipo in ("acusacao", "defesa") and not isinstance(usuario, Advogado):
+            raise PermissionError("Apenas advogados podem criar acusações ou defesas.")
+        elif tipo == "audiencia" and not isinstance(usuario, Juiz):
+            raise PermissionError("Apenas juízes podem marcar audiências.")

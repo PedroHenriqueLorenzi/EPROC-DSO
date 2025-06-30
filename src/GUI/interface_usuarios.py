@@ -191,7 +191,7 @@ class InterfaceUsuariosGUI:
         if tipo and tipo in tipos:
             usuarios = self.__controlador.get_usuarios_por_tipo(tipo.lower())
             if usuarios:
-                linhas = [f"{u.id} - {u.nome} ({tipo})" for u in usuarios]
+                linhas = [f"{u.id} - {u.nome} ({u.__class__.__name__})" for u in usuarios]
                 sg.popup_scrolled("\n".join(linhas), title=f"Relatório - {tipo}s")
             else:
                 sg.popup("Nenhum usuário encontrado do tipo informado.")

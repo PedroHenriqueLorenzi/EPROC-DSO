@@ -26,7 +26,13 @@ class InterfaceDocumentosGUI:
         if evento != "Avançar" or not valores["tipo"]:
             return
         tipo_nome = valores["tipo"][0]
-        tipo = dict(tipos)[tipo_nome]
+        tipo_dict = dict(tipos)
+        tipo = tipo_dict[tipo_nome]
+        try:
+            self.__controlador.validar_permissao_documento(tipo, usuario_logado)
+        except PermissionError as e:
+            sg.popup_error(str(e))
+            return
 
         while True:
             layout_dados = [

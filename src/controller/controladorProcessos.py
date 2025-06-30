@@ -19,8 +19,14 @@ class ControladorProcessos:
         self.__processo_dao = processo_dao
         self.__processo_dao = ProcessoDAO()
 
-    def set_usuario_logado(self, usuario: Usuario):
+    def set_usuario_logado(self, usuario):
+        if usuario.__class__.__name__.lower() not in ["juiz", "advogado"]:
+            raise PermissionError("Apenas juízes e advogados têm acesso aos processos.")
         self.__usuario_logado = usuario
+    
+    def get_usuario_logado(self):
+        return self.__usuario_logado
+
 
     def __carregar_tribunais(self):
         return [
@@ -240,19 +246,6 @@ class ControladorProcessos:
             for doc in processo.documentos:
                 print(f"- {doc.__class__.__name__}: {doc.titulo} (ID {doc.id})")
 
-    def encerrar_processo(self):
-        processo = self.selecionar_processo()
-        if not processo:
-            return
-
-        try:
-            processo.encerrar()
-            self.__processo_dao.update(processo.numero, processo)
-            self.__tela.mostrar_mensagem("Processo encerrado com sucesso e arquivamento gerado.")
-        except ValueError as e:
-            self.__tela.mostrar_mensagem(str(e))
-
-
     def gerar_relatorio(self):
         while True:
             opcao = self.__tela.mostrar_menu_relatorio()
@@ -429,3 +422,20 @@ class ControladorProcessos:
             if any(isinstance(d, Audiencia) for d in p.documentos)]
     def get_processo_dao(self):
         return self.__processo_dao
+    
+    def get_processos_do_usuario(self):
+        todos = self.__processo_dao.get_all()
+        usuario = self.__usuario_logado
+
+        if usuario.__class__.__name__.lower() == "juiz":
+            return [p for p in todos if p.juiz_responsavel.id == usuario.id]
+
+        elif usuario.__class__.__name__.lower() == "advogado":
+            return [p for p in todos if any(adv.id == usuario.id for adv in p.advogados)]
+
+        elif usuario.__class__.__name__.lower() == "parte":
+            return [p for p in todos if any(parte.id == usuario.id for parte in p.partes)]
+
+        else:
+            return []
+

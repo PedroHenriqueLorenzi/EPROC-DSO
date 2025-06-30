@@ -8,9 +8,19 @@ class InterfaceProcessosGUI:
 
     def abre_tela(self):
         sg.theme("DarkBlue3")
+        
+        usuario_logado = self.__controlador.get_usuario_logado()
+        if usuario_logado:
+            nome = usuario_logado.nome
+            funcao = usuario_logado.__class__.__name__
+            info_usuario = f"Usuário logado: {nome} - {funcao}"
+        else:
+            info_usuario = "Nenhum usuário logado"
+
         while True:
             layout = [
                 [sg.Text("GERENCIAR PROCESSOS", font=("Helvetica", 20), justification="center", expand_x=True)],
+                [sg.Text(info_usuario, font=("Helvetica", 10), justification="right", expand_x=True, text_color="yellow")],
                 [sg.HorizontalSeparator()],
                 [sg.Button("➕  Cadastrar Processo", size=(30, 2))],
                 [sg.Button("📋  Listar Processos", size=(30, 2))],
@@ -19,6 +29,7 @@ class InterfaceProcessosGUI:
                 [sg.Button("📂  Adicionar Documentos", size=(30, 2))],
                 [sg.Button("🧾  Relatórios", size=(30, 2))],
                 [sg.Button("🔎  Detalhes do Processo", size=(30, 2))],
+                [sg.Button("📁  Encerrar Processo", size=(30, 2))],
                 [sg.Button("🔙  Voltar", size=(30, 2))]
             ]
             window = sg.Window("MiniEPROC - Processos", layout, element_justification="center")
@@ -39,6 +50,8 @@ class InterfaceProcessosGUI:
                 self._adicionar_documento()
             elif evento == "🔎  Detalhes do Processo":
                 self._exibir_detalhes_processo()
+            elif evento == "📁  Encerrar Processo":
+                self._encerrar_processo()
             elif evento == "🧾  Relatórios":
                 self._menu_relatorios()
 
@@ -158,15 +171,17 @@ class InterfaceProcessosGUI:
         except Exception as e:
             sg.popup_error(str(e))
 
-
-
     def _listar_processos(self):
         try:
-            lista = self.__controlador.get_lista_processos_gui() if hasattr(self.__controlador, "get_lista_processos_gui") \
-                else [f"{p.numero} - Status: {p.status} - Tribunal: {p.tribunal.nome}" for p in getattr(self.__controlador, "_ControladorProcessos__processo_dao").get_all()]
+            lista = [
+                f"{p.numero} - Status: {p.status} - Tribunal: {p.tribunal.nome}"
+                for p in self.__controlador.get_processos_do_usuario()
+            ]
             sg.popup_scrolled("\n".join(lista) if lista else "Nenhum processo encontrado.", title="Processos")
         except Exception as e:
             sg.popup_error(f"Erro ao listar processos: {e}")
+
+
 
     def _editar_processo(self):
         processos = getattr(self.__controlador, "_ControladorProcessos__processo_dao").get_all()
@@ -421,6 +436,7 @@ class InterfaceProcessosGUI:
         if not processos:
             sg.popup("Nenhum processo disponível.")
             return
+
         proc_nomes = [f"{p.numero} - {p.status}" for p in processos]
         window = sg.Window("Selecionar Processo", [
             [sg.Text("Selecione o processo para adicionar documento:")],
@@ -429,8 +445,10 @@ class InterfaceProcessosGUI:
         ])
         evento, valores = window.read()
         window.close()
+
         if evento != "Ok" or not valores["sel"]:
             return
+
         numero = int(valores["sel"][0].split(" - ")[0])
         processo = next(p for p in processos if p.numero == numero)
         usuario_logado = getattr(self.__controlador, "_ControladorProcessos__usuario_logado", None)
@@ -440,4 +458,45 @@ class InterfaceProcessosGUI:
             processo,
             self.__controlador.get_usuarios()
         )
+
         self.__controlador.get_processo_dao().update(processo.numero, processo)
+
+    def _encerrar_processo(self):
+        processos = self.__controlador.get_todos_processos()
+        if not processos:
+            sg.popup("Nenhum processo disponível.")
+            return
+        
+        processos_abertos = [p for p in processos if p.status != "Encerrado"]
+        if not processos_abertos:
+            sg.popup("Todos os processos já estão encerrados.")
+            return
+
+        lista_nomes = [f"{p.numero} - {p.status}" for p in processos_abertos]
+        layout = [
+            [sg.Text("Selecione o processo a ser encerrado:")],
+            [sg.Listbox(lista_nomes, key="sel", size=(40, min(10, len(lista_nomes))))],
+            [sg.Button("Encerrar"), sg.Button("Cancelar")]
+        ]
+        window = sg.Window("Encerrar Processo", layout)
+        evento, valores = window.read()
+        window.close()
+
+        if evento != "Encerrar" or not valores["sel"]:
+            return
+
+        numero = int(valores["sel"][0].split(" - ")[0])
+        processo = next(p for p in processos_abertos if p.numero == numero)
+
+        usuario_logado = getattr(self.__controlador, "_ControladorProcessos__usuario_logado", None)
+        if not usuario_logado or usuario_logado.__class__.__name__.lower() != "juiz":
+            sg.popup_error("Apenas juízes podem encerrar processos.")
+            return
+
+        try:
+            processo.encerrar()
+            self.__controlador.get_processo_dao().update(processo.numero, processo)
+            sg.popup("Processo encerrado com sucesso!")
+        except ValueError as e:
+            sg.popup_error(str(e))
+

@@ -38,9 +38,13 @@ class ControladorSistema:
                     usuario = self.__controlador_usuarios.buscar_usuario_por_id(id_usuario)
 
                     if usuario:
-                        self.__controlador_processos.set_usuario_logado(usuario)
-                        gui = InterfaceProcessosGUI(self.__controlador_processos, self.__controlador_documentos)
-                        gui.abre_tela()
+                        try:
+                            self.__controlador_processos.set_usuario_logado(usuario)
+                            gui = InterfaceProcessosGUI(self.__controlador_processos, self.__controlador_documentos)
+                            gui.abre_tela()
+                        except PermissionError as e:
+                            sg.popup_error(str(e))
+                            
                     else:
                         sg.popup_error("Usuário não encontrado.")
                 else:

@@ -145,7 +145,10 @@ class ControladorUsuarios:
         return list(self.__user_dao.get_all())
 
     def get_usuarios_por_tipo(self, tipo):
-        return [u for u in self.__user_dao.get_all() if u.__class__.__name__.lower() == tipo.lower()]
+        if tipo.lower() == "parte":
+            return [u for u in self.__user_dao.get_all() if isinstance(u, (Reu, Vitima))]
+        else:
+            return [u for u in self.__user_dao.get_all() if u.__class__.__name__.lower() == tipo.lower()]
     
     def get_tribunais(self):
         return self.__tribunais

@@ -70,7 +70,7 @@ class Processo:
         if parte in self.__partes:
             self.__partes.remove(parte)
 
-    def encerrar(self):
+    def encerrar(self, motivo="Encerramento do processo."):
         if not any(isinstance(d, Audiencia) for d in self.documentos):
             raise ValueError("Não é possível encerrar o processo sem uma audiência.")
 
@@ -80,24 +80,12 @@ class Processo:
         arquivamento = Arquivamento(
             id=len(self.documentos) + 1,
             titulo=f"Arquivamento do processo {self.numero}",
-            descricao="Processo encerrado oficialmente com sentença e audiência.",
-            data_envio=date.today().isoformat(),
-            autor=self.juiz_responsavel,
-            motivo="Processo finalizado conforme regras judiciais."
-        )
-
-        self.documentos.append(arquivamento)
-        self.status = "Encerrado"
-    
-    def encerrar(self, motivo="Encerramento do processo."):
-        self.__status = "Encerrado"
-        arquivamento = Arquivamento(
-            id=len(self.__documentos) + 1,
-            titulo="Arquivamento automático",
             descricao=motivo,
             data_envio=date.today().isoformat(),
-            autor=self.__juiz_responsavel,
+            autor=self.juiz_responsavel,
             motivo=motivo
         )
+
         self.adicionar_documento(arquivamento)
+        self.status = "Encerrado"
         self.__arquivamento = arquivamento
